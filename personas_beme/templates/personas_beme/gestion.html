@@ -1,0 +1,26 @@
+{% extends 'personas_beme/base.html' %}
+{% load my_filters %}
+
+{% block content %}
+    <table id="table_id" class="display">
+        <thead>
+        <tr>
+            <th>Rut</th>
+            <th>Nombre</th>
+            <th>Impacto en el Gasto</th>
+            <th>Operaciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cliente in info_tabla %}  
+            <tr>
+            <td><a href="/info_clientes/?q={{cliente.cli_rut}}">{{cliente.cli_rut}}</a></td>
+            <td>{{cliente.cli_nom}}</td>
+            <td>{{cliente.impacto_gasto|currency}}</td>
+            <td>{{cliente.impactooperacion.cant_ope}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

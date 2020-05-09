@@ -1,0 +1,84 @@
+<!-- Prism CSS -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+  
+    <title>App Rene</title>
+
+    <script type="text/javascript" src="/jsi18n/"></script>
+    <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/widgets.css' %}"/>
+
+
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+
+
+    <link href="{% static 'DataTables/DataTables-1.10.20/css/dataTables.bootstrap.min.css' %}"/>
+    <script type="text/javascript" charset="utf8" src="{% static 'DataTables/DataTables-1.10.20/js/dataTables.bootstrap.min.js' %}"></script>  
+    <script type="text/javascript">
+        $(document).ready( function () {
+          $('#table_id').DataTable();
+          } );
+    </script>
+    
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a href="/admin" class="navbar-brand">App Rene Admin</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/info_clientes">Clientes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/gestion">Gestión</a>
+            </li>
+            <li class="nav-item">
+              <form method = "GET" class="form-inline">
+                <input name="q" class="form-control mr-sm-1" type="search" placeholder="Búsqueda por RUT..." aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+              </form>
+            </li>
+          </ul>
+        </div>
+        <span class="navbar-text">
+          {{ ejecutivo.nombre }} {{ ejecutivo.apellido }} {{ ejecutivo.apellido_materno }}
+        </span>
+    </nav>
+
+<div class="container">
+{% block content %}
+{% endblock %}
+</div>
+  <script type="text/javascript" src="/admin/jsi18n/"></script>
+  <script type="text/javascript" src="/static/admin/js/core.js"></script>
+  <script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js">        </script>
+  <!-- <script type="text/javascript" src="/static/admin/js/jquery.min.js"></script> -->
+  <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+  <script type="text/javascript" src="/static/admin/js/actions.min.js"></script>
+  <script type="text/javascript" src="/static/admin/js/calendar.js"></script>
+  <script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
+
+
+
+
+  <!--script src="{% static 'materialize/js/materialize.min.js"></script>-->
+  <script type="text/javascript" src="{% static '/bootstrap/js/bootstrap.js' %}"></script>
+
+</body>
+</html>

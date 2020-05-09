@@ -1,0 +1,119 @@
+{% extends 'personas_beme/base.html' %}
+{% load my_filters %}
+{{ form.media }}
+{% block content %}
+
+  {% if info_cliente %}
+    <p><strong><h5>Cliente</h5></strong></p>
+
+    <div class="row">
+      
+      <div class="col s10 m8 l6">
+        <table id="vertical-1">
+          <tr>
+              <th>Nombre : </th>
+              <td>{{info_cliente.cli_nom}}</td>
+          </tr>
+          <tr>
+              <th>Rut : </th>
+              <td>{{info_cliente.cli_rut}}</td>
+          </tr>
+          <tr>
+              <th>Número Fijo 1 : </th>
+              <td>{{info_cliente.tel_fijo_1|telefono_fijo}}</td>
+          </tr>
+          <tr>
+              <th>Número Fijo 2 : </th>
+              <td>{{info_cliente.tel_fijo_2|telefono_fijo}}</td>
+          </tr>
+          <tr>
+              <th>Número Móvil 1 : </th>
+              <td>{{info_cliente.tel_cel_1|celular}}</td>
+          </tr>
+          <tr>
+              <th>Número Móvil 2 : </th>
+              <td>{{info_cliente.tel_cel_2|celular}}</td>
+          </tr>
+          <tr>
+              <th>Direccion Particular : </th>
+              <td>{{info_cliente.direccion_particular}}</td>
+          </tr>
+          <tr>
+              <th>Direccion Comercial : </th>
+              <td>{{info_cliente.direccion_comercial}}</td>
+          </tr>
+          <tr>
+              <th>Estado: </th>
+              <td>{{info_cliente.estado_diario}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col s10 m8 l6">
+        <form action="" method="POST">{% csrf_token %}
+               <table>
+                  {{ form }}
+               </table>
+               <input type="submit" value="Guardar Cambios">
+        </form>
+      </div>  
+    </div>
+    
+    <p><strong><h5>Ofertas</h5></strong></p>
+      <div class="row">
+            <div class="card text-white bg-info mb-3 border-dark" style="max-width: 50rem;">
+              <div class="card-header">Oferta 1</div>
+                <div class="card-body">
+                  <table id="vertical-1">
+                    <tr><th>Tasa : </th><td>{{info_oferta.ope_tasa_oferta_1|porcentaje}}</td></tr>
+                    <tr><th>Plazo : </th><td>{{info_oferta.plazo_oferta_1}}</td></tr>
+                    <tr><th>Monto : </th><td>{{info_oferta.monto_oferta_1|currency}}</td></tr>
+                    <tr><th>Porcentaje de Rebaja : </th><td>{{info_oferta.per_rebaja_oferta_1|porcentaje}}</td></tr>
+                    <tr><th>Monto Total a Pagar : </th><td>{{info_oferta.total_a_pagar_oferta_1|currency}}</td></tr>
+                  </table>
+                </div>
+            </div>
+
+
+            <div class="card text-white bg-info mb-3 border-dark" style="max-width: 50rem;">
+              <div class="card-header">Oferta 2</div>
+                <div class="card-body">
+                  <table id="vertical-1">
+                    <tr><th>Tasa :                 </th><td>{{info_oferta.ope_tasa_oferta_2|porcentaje}}</td></tr>
+                    <tr><th>Plazo :                </th><td>{{info_oferta.plazo_oferta_2}}</td></tr>
+                    <tr><th>Monto :                </th><td>{{info_oferta.monto_oferta_2|currency}}</td></tr>
+                    <tr><th>Porcentaje de Rebaja : </th><td>{{info_oferta.per_rebaja_oferta_2|porcentaje}}</td></tr>
+                    <tr><th>Monto Total a Pagar :  </th><td>{{info_oferta.total_a_pagar_oferta_2|currency}}</td></tr>
+                  </table>
+                </div>
+            </div>
+
+      </div>
+
+      <p><strong><h5>Operaciones</h5></strong></p>
+      <div class="row">
+        {% for cada_operacion in detalle_operaciones%}
+          <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
+            <div class="card-header">Operación {{forloop.counter}}</div>
+              <div class="card-body">
+                <span class="card-title"></span>
+                <table id="vertical-1">
+                  <tr><th>Plazo : </th>              <td>{{cada_operacion.ope_cant_cuo}}</td>      </tr>
+                  <tr><th>Monto Cuota : </th>        <td>{{cada_operacion.dop_mnt_cuo|currency}}</td>       </tr>
+                  <tr><th>Saldo Total : </th>        <td>{{cada_operacion.dop_sdo_tot|currency}}</td>       </tr>
+                  <tr><th>Tasa : </th>               <td>{{cada_operacion.ope_tasa}} %</td>          </tr>
+                  <tr><th>Cuotas Pagadas : </th>     <td>{{cada_operacion.ope_cuotas_pagadas}}</td></tr>
+                  <tr><th>Días de Mora : </th>       <td>{{cada_operacion.dop_dia_mra}} días</td>       </tr>
+                  <tr><th>Fecha Curse : </th>        <td>{{cada_operacion.fecha_curse|date:"d M, Y"}}</td>       </tr>
+                  <tr><th>Fecha Otorgación : </th>   <td>{{cada_operacion.fec_oto|date:"d M, Y"}}</td>           </tr>
+                  <tr><th>Primer Vencimiento : </th> <td>{{cada_operacion.primer_ven|date:"d M, Y"}}</td>        </tr>
+                  <tr><th>Próximo Vencimiento : </th><td>{{cada_operacion.prox_ven|date:"d M, Y"}}</td>          </tr>
+                  <tr><th>Fecha de Pago Final : </th><td>{{cada_operacion.fecha_pago_final|date:"d M, Y"}}</td > </tr>
+                </table>
+              </div>
+          </div>
+        {% endfor %}
+      </div>
+  {% endif %}
+
+{% endblock %}
