@@ -1,0 +1,54 @@
+<table id="vertical-1">
+    <tr>
+      <select class="browser-default">
+        <option value="" disabled selected>Estado Contacto Interesado</option>
+        <option value="AGENDADO">Agendado</option>
+        <option value="SIN_CONTACTO">Sin Contacto</option>
+      </select>
+    </tr>
+    <tr>
+      <select class="browser-default">
+        <option value="" disabled selected>Respuesta</option>
+        <option value="INTERESADO_EN_OFERTA">Interesado en Oferta Simulador</option>
+        <option value="INTERESADO_EN_RENEGOCIAR">Interesado en Renegociar - Derivar a la Plataforma BEME</option>
+        <option value="NO_INTERESADO-PAGARA_CUOTA">No Interesado - Pagará Cuota</option>
+      </select>
+    </tr>
+    <tr>
+      <select class="browser-default">
+        <option value="" disabled selected>Estado Diario</option>
+        <option value="MOROSO">Moroso</option>
+        <option value="AL_DIA">Al Día</option>
+      </select>
+    </tr>
+    <tr>
+      <select class="browser-default">
+        <option value="" disabled selected>Postergación</option>
+        <option value="SI">Si</option>
+        <option value="NO">No</option>
+      </select>
+    </tr>
+    <tr>
+      <div>
+        <label>
+          <input type="checkbox"/>
+          <span>Canal CCL</span>
+        </label>
+      </div> 
+    </tr>
+    <tr>      
+      <label>
+      <input type="checkbox"/>
+      <span>Canal WEB</span>
+      </label>
+    </tr>
+    <tr> <form type="text" class="vDateField"> {{admin_date}} </form></tr>
+    <tr> <input type="text" class="datepicker"> </tr>
+    <tr> <input type="text" class="datepicker"> </tr>
+    <tr> <input type="text" class="datepicker"> </tr>
+    <tr>  
+      <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
+        <i class="material-icons right"></i>
+      </button>
+    </tr>
+  </table>
