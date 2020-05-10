@@ -22,8 +22,6 @@ def tabla_clientes(request):
     else:
         nombre_usuario = request.user.username
         clientes = Cliente.objects.filter(ejecutivo_gestor__email__startswith = nombre_usuario).order_by("-impacto_gasto")
-        print(clientes.query)
-        print(clientes)
     return render(request = request,
                   template_name='personas_beme/gestion.html',
                   context = {"info_tabla"   : clientes,

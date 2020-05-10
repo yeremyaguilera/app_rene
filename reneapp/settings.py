@@ -17,7 +17,7 @@ HOST_NAME = socket.gethostname().lower()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+UPPER_BASE_DIR = os.path.abspath(os.path.join('', os.pardir))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -73,6 +73,11 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            
+            'libraries':{
+            'my_filters': 'personas_beme.templatetags.my_filters',
+
+            }
         },
     },
 ]
@@ -83,10 +88,12 @@ WSGI_APPLICATION = 'reneapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+DB_DIR = '/app_rene data'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(UPPER_BASE_DIR + DB_DIR, 'db.sqlite3'),
     }
 }
 
