@@ -17,7 +17,9 @@ class FormularioCliente(forms.ModelForm):
                     'fecha_firma',
                     'postergacion',
                     'canal_ccl',
-                    'canal_web']
+                    'canal_web',
+                    'eleccion_oferta']
+                    
         widgets = {'cli_rut': forms.HiddenInput(), 
                     'fecha_asignacion': AdminDateWidget(), 
                     'fecha_gestion': AdminDateWidget(), 

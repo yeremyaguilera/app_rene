@@ -3,6 +3,17 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 
 register = template.Library()
 
+def bolean_to_value(T_o_F):
+    if T_o_F == True:
+        return "SI"
+    elif T_o_F == False:
+        return "NO"
+    else:
+        return "No hay Informacion"
+
+register.filter('bolean_to_value', bolean_to_value)
+
+
 def currency(dollars):
     dollars = int(dollars)
     return "$ %s" % (intcomma(dollars))

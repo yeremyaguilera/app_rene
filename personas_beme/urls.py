@@ -20,9 +20,10 @@ from django.views.i18n import JavaScriptCatalog
 
 
 urlpatterns = [
-    path(''              , views.panel                , name = 'panel'),
-    path("gestion/"      , views.tabla_clientes       , name = "tabla_clientes"),
-    path("info_clientes/", views.info_clientes        , name = "info_clientes"),
-    path("formulario/"   , views.formulario           , name = "formulario"),
-    path('jsi18n/'       , JavaScriptCatalog.as_view(), name = 'javascript-catalog'),
+    path(''               , views.panel                , name = 'panel'),
+    path("gestion/"       , views.tabla_clientes       , name = "tabla_clientes"),
+    path("detalle_oferta/", views.detalle_oferta       , name = "detalle_oferta"),
+    path("info_clientes/" , views.info_clientes        , name = "info_clientes"),
+    path("formulario/"    , views.formulario           , name = "formulario"),
+    path('jsi18n/'        , JavaScriptCatalog.as_view(), name = 'javascript-catalog'),
 ]

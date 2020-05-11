@@ -30,6 +30,15 @@ ESTADO_CURSE = (('NO_CURSADA', 'No Cursada'),
                 ('CURSADA', 'Cursada'), 
                 ('EN_PROCESO', "En Proceso"))
 
+ESTADO_DIARIO = (("MOROSO", "Moroso"),
+                ("AL_DIA", "Al Día"))
+
+OPCIONES_CANAL = ((1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, "5"))
+
+OPCIONES_POSTERGACION = (("SI", "SI"), ("NO", "NO"))
+
+OPCIONES_OFERTA = (("OFERTA_1", "Oferta 1"), ("OFERTA_2", "Oferta 2"))
+
 class Cliente(models.Model):
     cli_rut = models.IntegerField(primary_key=True, help_text="Sin dígito verificador")
     cli_nom = models.CharField(max_length=100)
@@ -58,6 +67,7 @@ class Cliente(models.Model):
 
     direccion_particular = models.CharField(max_length = 100, blank = True, null = True)
     direccion_comercial  = models.CharField(max_length = 100, blank = True, null = True)
+    preaprobados_reng    = models.BooleanField(verbose_name="Preaprobados Rene")
 
     impacto_gasto = models.IntegerField()
 
@@ -78,13 +88,25 @@ class Cliente(models.Model):
     fecha_firma = models.DateField(blank=True) 
 
     estado_diario = models.CharField(max_length = 50, 
-                                        choices = (("MOROSO", "Moroso"),
-                                                    ("AL_DIA", "Al Día")),
+                                        choices = ESTADO_DIARIO,
                                         blank = True, 
                                         null = True)
-    postergacion  = models.BooleanField()
-    canal_ccl     = models.BooleanField(verbose_name="Canal CCL")
-    canal_web     = models.BooleanField(verbose_name="Canal WEB")
+
+    postergacion  = models.CharField(max_length = 50, 
+                                        choices = OPCIONES_POSTERGACION,
+                                        blank = True, 
+                                        null = True)
+
+    canal_ccl     = models.IntegerField(choices = OPCIONES_CANAL,
+                                        blank = True, 
+                                        null = True, verbose_name="Canal CCL")
+
+    canal_web     = models.BooleanField(null = True, verbose_name="Canal WEB")
+
+    eleccion_oferta  = models.CharField(max_length = 50, 
+                                        choices = OPCIONES_OFERTA,
+                                        blank = True, 
+                                        null = True)
 
     def __str__(self):
         return self.cli_nom +': '+ str(self.cli_rut)
@@ -102,12 +124,26 @@ class OfertaCliente(models.Model):
     ope_tasa_oferta_1       = models.FloatField(default = 0, blank=False)
     plazo_oferta_1          = models.IntegerField(default = 1, blank=False)
     monto_oferta_1          = models.IntegerField(default = 0, blank=False)
+    monto_c_oferta_1        = models.IntegerField(default = 0, blank=False)
+    monto_k_oferta_1        = models.IntegerField(default = 0, blank=False)
+    monto_gar_1_oferta_1    = models.IntegerField(default = 0, blank=False)
+    monto_gar_2_oferta_1    = models.IntegerField(default = 0, blank=False)
+    monto_gar_3_oferta_1    = models.IntegerField(default = 0, blank=False)
+    monto_gar_4_oferta_1    = models.IntegerField(default = 0, blank=False)
     per_rebaja_oferta_1     = models.FloatField(default = 0, blank=False)
     total_a_pagar_oferta_1  = models.IntegerField(default = 0, blank=False)
+
+
 
     ope_tasa_oferta_2       = models.FloatField(default = 0, blank=False)
     plazo_oferta_2          = models.IntegerField(default = 1, blank=False)
     monto_oferta_2          = models.IntegerField(default = 0, blank=False)
+    monto_c_oferta_2        = models.IntegerField(default = 0, blank=False)
+    monto_k_oferta_2        = models.IntegerField(default = 0, blank=False)
+    monto_gar_1_oferta_2    = models.IntegerField(default = 0, blank=False)
+    monto_gar_2_oferta_2    = models.IntegerField(default = 0, blank=False)
+    monto_gar_3_oferta_2    = models.IntegerField(default = 0, blank=False)
+    monto_gar_4_oferta_2    = models.IntegerField(default = 0, blank=False)
     per_rebaja_oferta_2     = models.FloatField(default = 0, blank=False)
     total_a_pagar_oferta_2  = models.IntegerField(default = 0, blank=False)
 

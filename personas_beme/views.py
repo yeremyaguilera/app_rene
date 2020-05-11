@@ -27,6 +27,16 @@ def tabla_clientes(request):
                   context = {"info_tabla"   : clientes,
                             "ejecutivo"     : ejecutivo})
 
+def detalle_oferta(request):
+    rut     = int(request.GET["q"])
+    ofertas = OfertaCliente.objects.get(cliente__cli_rut = rut)
+    resumen_operaciones = ImpactoOperacion.objects.get(cliente__cli_rut = rut)
+    return render(request = request,
+                  template_name='personas_beme/detalle_oferta.html',
+                  context = {"info_ofertas": ofertas,
+                            "resumen_operaciones": resumen_operaciones})
+
+
 def formulario(request):
     if request.method == 'POST':
         form = FormularioCliente(request.POST or None)
@@ -56,7 +66,6 @@ def info_clientes(request):
         
         if Cliente.objects.filter(cli_rut = rut).exists():
             cliente = Cliente.objects.get(cli_rut = rut)
-            # resto de acciones cuando el pedido existe        form    = FormularioCliente(instance = cliente)
 
             form = FormularioCliente(instance = cliente)
             ofertas = OfertaCliente.objects.get(cliente__cli_rut = rut)

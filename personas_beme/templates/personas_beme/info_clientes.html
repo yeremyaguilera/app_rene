@@ -43,8 +43,12 @@
               <td>{{info_cliente.direccion_comercial}}</td>
           </tr>
           <tr>
-              <th>Estado: </th>
+              <th>Estado : </th>
               <td>{{info_cliente.estado_diario}}</td>
+          </tr>
+          <tr>
+              <th>Preaprobado Renegociación : </th>
+              <td>{{info_cliente.preaprobados_reng|bolean_to_value}}</td>
           </tr>
         </table>
       </div>
@@ -59,7 +63,7 @@
       </div>  
     </div>
     
-    <p><strong><h5>Ofertas</h5></strong></p>
+    <p><strong><h5>Ofertas</h5></strong>  <a href="/detalle_oferta/?q={{info_oferta.cliente.cli_rut}}">Ver detalle de Ofertas</a> </p>
       <div class="row">
             <div class="card text-white bg-info mb-3 border-dark" style="max-width: 50rem;">
               <div class="card-header">Oferta 1</div>
@@ -87,7 +91,6 @@
                   </table>
                 </div>
             </div>
-
       </div>
 
       <p><strong><h5>Operaciones</h5></strong></p>
@@ -109,6 +112,7 @@
                   <tr><th>Primer Vencimiento : </th> <td>{{cada_operacion.primer_ven|date:"d M, Y"}}</td>        </tr>
                   <tr><th>Próximo Vencimiento : </th><td>{{cada_operacion.prox_ven|date:"d M, Y"}}</td>          </tr>
                   <tr><th>Fecha de Pago Final : </th><td>{{cada_operacion.fecha_pago_final|date:"d M, Y"}}</td > </tr>
+                  <tr><th>CPD : </th>                <td>{{cada_operacion.cpd}}</td > </tr>
                 </table>
               </div>
           </div>

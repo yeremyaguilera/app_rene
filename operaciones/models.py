@@ -75,13 +75,24 @@ class ImpactoOperacion(models.Model):
 
     periodo_de_gracia = models.IntegerField(default = 0, blank=False)
 
+    saldo_adeudado_gar = models.IntegerField(default = 0, blank=False)
+    saldo_adeudado_gar_1 = models.IntegerField(default = 0, blank=False)
+    saldo_adeudado_gar_2 = models.IntegerField(default = 0, blank=False)
+    saldo_adeudado_gar_3 = models.IntegerField(default = 0, blank=False)
+    saldo_adeudado_gar_4 = models.IntegerField(default = 0, blank=False)
+
     saldo_adeudado_gar_final = models.IntegerField(default = 0, blank=False)
+    saldo_adeudado_gar_1_final = models.IntegerField(default = 0, blank=False)
+    saldo_adeudado_gar_2_final = models.IntegerField(default = 0, blank=False)
+    saldo_adeudado_gar_3_final = models.IntegerField(default = 0, blank=False)
+    saldo_adeudado_gar_4_final = models.IntegerField(default = 0, blank=False)
 
     saldo_sin_gar_comercial = models.IntegerField(default = 0, blank=True, null=True)
 
     saldo_sin_gar_comercial_final = models.IntegerField(default = 0, blank=True, null=True)
 
     saldo_adeudado_consumo = models.IntegerField(default = 0, blank=True, null=True)
+    saldo_adeudado_consumo_final = models.IntegerField(default = 0, blank=True, null=True)
 
     pago_mensual = models.IntegerField(default = 0, blank=False)
 
