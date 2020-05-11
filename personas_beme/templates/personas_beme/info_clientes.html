@@ -58,7 +58,7 @@
                <table>
                   {{ form }}
                </table>
-               <input type="submit" value="Guardar Cambios">
+               <input name="info_button" type="submit" value="Guardar Cambios">
         </form>
       </div>  
     </div>
@@ -90,6 +90,16 @@
                     <tr><th>Monto Total a Pagar :  </th><td>{{info_oferta.total_a_pagar_oferta_2|currency}}</td></tr>
                   </table>
                 </div>
+            </div>
+
+            <div class="col-xs-4">
+              <form action="" method="POST">{% csrf_token %}
+                <table>
+                  {{ contrapartes }}
+               </table>              
+                <input name="email_button" type="submit" style="width:auto" value="Enviar email">
+                <input type="hidden" id="cli_rut" name="cli_rut" value={{info_cliente.cli_rut}}>
+              </form>
             </div>
       </div>
 
