@@ -51,14 +51,23 @@
               <td>{{info_cliente.preaprobados_reng|bolean_to_value}}</td>
           </tr>
         </table>
+        <p> </p>
+        <div class="col s10 m8 l6">
+          <form action="" method="POST">{% csrf_token %}
+                 <table>
+                    {{ db_form }}
+                 </table>
+                 <input name="db_button" type="submit" style="width:auto" value="Guardar Cambios">
+          </form>
+        </div>  
       </div>
 
       <div class="col s10 m8 l6">
         <form action="" method="POST">{% csrf_token %}
                <table>
-                  {{ form }}
+                  {{ excel_form }}
                </table>
-               <input name="info_button" type="submit" value="Guardar Cambios">
+               <input name="excel_button" type="submit" style="width:auto" value="Guardar Cambios">
         </form>
       </div>  
     </div>

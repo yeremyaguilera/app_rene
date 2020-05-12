@@ -31,12 +31,12 @@ class PersonaAdmin(admin.ModelAdmin, ExportXLSXMixin):
                                                         ('tel_fijo_1', 'tel_fijo_2', 'tel_cel_1', 'tel_cel_2'),
                                                         ('direccion_particular', 'direccion_comercial'),
                                                         'zona_cli'  , 'modulo_cli', 'sucursal_cli',
-                                                        'ejecutivo_cartera', 'ejecutivo_gestor')}),
+                                                        'ejecutivo_cartera', 'ejecutivo_gestor', 'estado_diario', 'postergacion','canal_ccl', 'canal_web')}),
                  ('Información de Gestión',
                                             {'fields': (('fecha_asignacion', 'fecha_gestion'),
-                                                        ('fecha_reinsistencia',  'estado_contacto_interesado'), 
-                                                        'fecha_firma','respuesta',
-                                                        ('estado_diario', 'postergacion', 'canal_ccl', 'canal_web'))}))
+                                                        'contactabilidad', 'respuesta_cliente', 'estado', 'fecha_reinsistencia', 
+                                                        'contacto_cliente_interesado', 'estado_cliente', 'fecha_firma', 
+                                                        'estado_curse', 'eleccion_oferta')}))
 
 @admin.register(OfertaCliente)
 class OfertaClienteAdmin(admin.ModelAdmin):

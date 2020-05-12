@@ -72,6 +72,9 @@ class AsistenteComercialAdmin(PersonaAdmin):
 
 @admin.register(EjecutivoComercial)
 class EjecutivoComercialAdmin(PersonaAdmin):
+
+    ordering = ['nombre']
+
     fields = ('codigo_ejecutivo', 
                 'nombre',
                 'apellido',

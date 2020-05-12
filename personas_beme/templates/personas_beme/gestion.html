@@ -2,13 +2,14 @@
 {% load my_filters %}
 
 {% block content %}
-    <table id="table_id" class="display">
+    <table id="tabla_gestion" class="display">
         <thead>
         <tr>
             <th>Rut</th>
             <th>Nombre</th>
             <th>Impacto en el Gasto</th>
             <th>Operaciones</th>
+            <th>Gestor</th>
         </tr>
         </thead>
         <tbody>
@@ -18,6 +19,7 @@
             <td>{{cliente.cli_nom}}</td>
             <td>{{cliente.impacto_gasto|currency}}</td>
             <td>{{cliente.impactooperacion.cant_ope}}</td>
+            <td>{{cliente.ejecutivo_gestor}}</td>
             </tr>
         {% endfor %}
         </tbody>

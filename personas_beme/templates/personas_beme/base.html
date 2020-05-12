@@ -11,9 +11,8 @@
   
     <title>App Rene</title>
 
-    <script type="text/javascript" src="/jsi18n/"></script>
-    <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
-    <script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>-->
+    <!-- <script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>-->
 
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}"/>
@@ -21,16 +20,9 @@
 
 
     <!-- Custom styles for this template-->
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet"  href="{% static 'bootstrap/css/bootstrap.min.css' %}">
 
-
-    <link href="{% static 'DataTables/DataTables-1.10.20/css/dataTables.bootstrap.min.css' %}"/>
-    <script type="text/javascript" charset="utf8" src="{% static 'DataTables/DataTables-1.10.20/js/dataTables.bootstrap.min.js' %}"></script>  
-    <script type="text/javascript">
-        $(document).ready( function () {
-          $('#table_id').DataTable();
-          } );
-    </script>
+    <link href="{% static 'DataTables/DataTables-1.10.20/css/jquery.dataTables.min.css' %}" />
     
 </head>
 <body>
@@ -65,18 +57,23 @@
 {% block content %}
 {% endblock %}
 </div>
-  <script type="text/javascript" src="/admin/jsi18n/"></script>
+  <script type="text/javascript" src="/jsi18n/"></script>
+  <!-- <script type="text/javascript" src="/admin/jsi18n/"></script>-->
   <script type="text/javascript" src="/static/admin/js/core.js"></script>
-  <script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js">        </script>
+  <!-- <script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js">        </script>-->
   <!-- <script type="text/javascript" src="/static/admin/js/jquery.min.js"></script> -->
-  <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+  <!-- <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script> -->
   <script type="text/javascript" src="/static/admin/js/actions.min.js"></script>
   <script type="text/javascript" src="/static/admin/js/calendar.js"></script>
   <script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
 
 
-
-
+  <script charset="utf8" src="{% static 'DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js' %}"></script>  
+  <script>
+      $(document).ready( function () {
+        $('#tabla_gestion').DataTable();
+        } );
+  </script>
   <!--script src="{% static 'materialize/js/materialize.min.js"></script>-->
   <script type="text/javascript" src="{% static '/bootstrap/js/bootstrap.js' %}"></script>
 

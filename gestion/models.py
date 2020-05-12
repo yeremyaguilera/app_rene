@@ -1,6 +1,9 @@
 from django.db import models
 from personas_beme.models import EjecutivoComercial
+import datetime
 
+
+today_srt = datetime.datetime.today().date().strftime("%d-%m-%Y")
 # Create your models here.
 class Contraparte(models.Model):
     class Meta:
@@ -21,7 +24,7 @@ class ActualizaGestion(models.Model):
     ejecutivo = models.ForeignKey(EjecutivoComercial, on_delete= models.DO_NOTHING, related_name='ejecutivo')
     fecha     = models.DateField(auto_now_add=True, blank=True) 
 
-    info_gestion = models.FileField(upload_to='gestiones/', blank = True, null=True, help_text="Debe ser el archivo de gestión del ejecutivo")
+    info_gestion = models.FileField(upload_to='gestiones/'+ today_srt, blank = True, null=True, help_text="Debe ser el archivo de gestión del ejecutivo")
 
     def __str__(self):
         return str(self.ejecutivo) + ' : '+ str(self.fecha)

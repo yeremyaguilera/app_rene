@@ -11,18 +11,18 @@ from personas_beme.models import EjecutivoComercial
 CONTACTABILIDAD = (('CON_CONTACTO', 'Contactado'), 
                     ('SIN_CONTACTO', 'Sin Contacto'))
 
-RESPUESTAS_CLIENTE = (("INTERESADO_EN_OFERTA", 'Interesado en Oferta Simulador'), 
-                        ('INTERESADO_EN_RENEGOCIAR', 'Interesado en Renegociar - Derivar a la Plataforma BEME'), 
-                        ('NO_INTERESADO-PAGARA_CUOTA', 'No Interesado - Pagará Cuota'))
+RESPUESTAS_CLIENTE = (("INTERESADO_EN_OFERTA_SIMULADOR", 'Interesado en Oferta Simulador'), 
+                        ('INTERESADO_EN_RENEGOCIAR_-_DERIVAR_A_PLATAFORMA_BEME', 'Interesado en Renegociar - Derivar a la Plataforma BEME'), 
+                        ('NO_INTERESADO_-_PAGARA_CUOTA', 'No Interesado - Pagará Cuota'))
 
-ESTADO = (("SE_ACERCARA", "Se acercará a la Sucursal"),
-                    ("NO_SE_ACERCARA", "No puede acercarse a la Sucursal"),
+ESTADO = (("SE_ACERCARA_A_SUCURSAL", "Se acercará a la Sucursal"),
+                    ("NO_PUEDE_ACERCARSE_A_SUCURSAL ", "No puede acercarse a la Sucursal"),
                     ("LO_PENSARA", "Lo Pensará"))
 
 CONTACTO_CLIENTE_INTERESADO = (('AGENDADO', 'Agendado'), 
                                 ('SIN_CONTACTO', "Sin Contacto"))
 
-ESTADO_CLIENTE = (('FIMARA', 'Firmará Documentos'), 
+ESTADO_CLIENTE = (('FIRMARA_DOCUMENTOS', 'Firmará Documentos'), 
                     ('DOCUMENTOS_FIRMADOS', 'Documentos Firmados'), 
                     ('RECHAZA_OFERTA', 'Rechaza Oferta'))
 
@@ -71,27 +71,12 @@ class Cliente(models.Model):
 
     impacto_gasto = models.IntegerField()
 
-    fecha_asignacion = models.DateField(blank=True)
-    fecha_gestion    = models.DateField(blank=True) 
-
-
-    respuesta  = models.CharField(max_length = 30, 
-                                        choices = RESPUESTAS_CLIENTE, 
-                                        blank = True, null = True)
-    
-    fecha_reinsistencia    = models.DateField(blank=True) 
-
-    estado_contacto_interesado = models.CharField(max_length = 30, 
-                                        choices = CONTACTO_CLIENTE_INTERESADO, 
-                                        blank = True, null = True)
-
-    fecha_firma = models.DateField(blank=True) 
 
     estado_diario = models.CharField(max_length = 50, 
                                         choices = ESTADO_DIARIO,
                                         blank = True, 
                                         null = True)
-
+    
     postergacion  = models.CharField(max_length = 50, 
                                         choices = OPCIONES_POSTERGACION,
                                         blank = True, 
@@ -105,6 +90,40 @@ class Cliente(models.Model):
 
     eleccion_oferta  = models.CharField(max_length = 50, 
                                         choices = OPCIONES_OFERTA,
+                                        blank = True, 
+                                        null = True)
+    
+    fecha_asignacion = models.DateField(blank=True)
+    
+    fecha_gestion    = models.DateField(blank=True) 
+
+    contactabilidad = models.CharField(max_length = 50, 
+                                        choices = CONTACTABILIDAD,
+                                        blank = True, 
+                                        null = True)
+
+    respuesta_cliente  = models.CharField(max_length = 30, 
+                                        choices = RESPUESTAS_CLIENTE, 
+                                        blank = True, null = True)
+    
+    estado = models.CharField(max_length = 30, 
+                                        choices = ESTADO, 
+                                        blank = True, null = True)
+
+
+    fecha_reinsistencia    = models.DateField(blank=True) 
+
+    contacto_cliente_interesado = models.CharField(max_length = 30, 
+                                        choices = CONTACTO_CLIENTE_INTERESADO, 
+                                        blank = True, null = True)
+
+    estado_cliente = models.CharField(max_length = 30, 
+                                        choices = ESTADO_CLIENTE, 
+                                        blank = True, null = True)
+
+    fecha_firma = models.DateField(blank=True) 
+
+    estado_curse = models.IntegerField(choices = ESTADO_CURSE,
                                         blank = True, 
                                         null = True)
 

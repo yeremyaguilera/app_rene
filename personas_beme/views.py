@@ -4,7 +4,9 @@ from gestion.models import Contraparte
 from clientes.models import Cliente, OfertaCliente
 from operaciones.models import Operacion, ImpactoOperacion
 
-from .forms import FormularioCliente, EmailForm
+from django.db.models import Q
+
+from .forms import FormularioClienteDB, FormularioClienteExcel, EmailForm
 import pyodbc
 import os
 import pandas.io.sql as psql
@@ -90,12 +92,17 @@ def panel(request):
 
 def tabla_clientes(request):
     nombre_usuario = request.user.username
-    ejecutivo      = EjecutivoComercial.objects.get(email__startswith = nombre_usuario)   
+    ejecutivo      = EjecutivoComercial.objects.get(email__startswith = nombre_usuario)
+
     if request.user.username == "yaguile1":
         clientes = Cliente.objects.all().order_by("-impacto_gasto")
     else:
         nombre_usuario = request.user.username
-        clientes = Cliente.objects.filter(ejecutivo_gestor__email__startswith = nombre_usuario).order_by("-impacto_gasto")
+        yo_contraparte = Contraparte.objects.filter(ejecutivo_contraparte = ejecutivo)
+
+        ejecutivos = [cada_ejecutivo.ejecutivo_sin_acceso for cada_ejecutivo in yo_contraparte]
+
+        clientes = Cliente.objects.filter(Q(ejecutivo_gestor = ejecutivo) | Q(ejecutivo_gestor__in = ejecutivos)).order_by("-impacto_gasto")
     return render(request = request,
                   template_name='personas_beme/gestion.html',
                   context = {"info_tabla"   : clientes,
@@ -113,19 +120,29 @@ def detalle_oferta(request):
 def info_clientes(request):
     nombre_usuario = request.user.username
     ejecutivo      = EjecutivoComercial.objects.get(email__startswith = nombre_usuario)    
-    form           = FormularioCliente()
+    excel_form     = FormularioClienteExcel()
+    db_form        = FormularioClienteDB()
     contrapartes   = EmailForm(ejecutivo_sin_acceso=ejecutivo)
 
     if request.method == "POST":
-        if 'info_button' in request.POST:
-            print(request.POST)
+        if 'excel_button' in request.POST:
             rut     = int(request.POST.get("cli_rut"))
             cliente = Cliente.objects.get(cli_rut = rut)
-            form    = FormularioCliente(request.POST, instance = cliente)
-            if form.is_valid():
-                form.save()
+            excel_form    = FormularioClienteExcel(request.POST, instance = cliente)
+            if excel_form.is_valid():
+                excel_form.save()
             else:
-                print(form.errors)
+                print(excel_form.errors)
+
+        if 'db_button' in request.POST:
+            rut     = int(request.POST.get("cli_rut"))
+            cliente = Cliente.objects.get(cli_rut = rut)
+            excel_form    = FormularioClienteDB(request.POST, instance = cliente)
+            if excel_form.is_valid():
+                excel_form.save()
+            else:
+                print(excel_form.errors)
+
         if 'email_button' in request.POST:
             rut     = int(request.POST.get("cli_rut"))
             cliente = Cliente.objects.get(cli_rut = rut)
@@ -141,7 +158,9 @@ def info_clientes(request):
         if Cliente.objects.filter(cli_rut = rut).exists():
             cliente = Cliente.objects.get(cli_rut = rut)
 
-            form = FormularioCliente(instance = cliente)
+            excel_form = FormularioClienteExcel(instance = cliente)
+            db_form    = FormularioClienteDB(instance = cliente)
+
             ofertas = OfertaCliente.objects.get(cliente__cli_rut = rut)
             detalle_operaciones = Operacion.objects.filter(cliente__cli_rut = rut)
             resumen_operaciones = ImpactoOperacion.objects.get(cliente__cli_rut = rut)
@@ -151,7 +170,8 @@ def info_clientes(request):
                                         "resumen_operaciones": resumen_operaciones,
                                         "info_oferta"        : ofertas, 
                                         "info_cliente"       : cliente,
-                                        "form"               : form,
+                                        "excel_form"         : excel_form,
+                                        "db_form"            : db_form,
                                         "ejecutivo"          : ejecutivo,
                                         "contrapartes"       : contrapartes})
         else:

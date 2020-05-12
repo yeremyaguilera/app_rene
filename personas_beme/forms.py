@@ -5,21 +5,33 @@ from django.contrib.admin.widgets import AdminDateWidget
 from clientes.models import RESPUESTAS_CLIENTE, CONTACTO_CLIENTE_INTERESADO
 
 
-class FormularioCliente(forms.ModelForm):
+
+class FormularioClienteDB(forms.ModelForm):
+
+    class Meta:
+        model = Cliente
+        fields = ['cli_rut',
+                    'canal_ccl',
+                    'canal_web',
+                    'eleccion_oferta']
+                    
+        widgets = {'cli_rut': forms.HiddenInput()}
+
+class FormularioClienteExcel(forms.ModelForm):
 
     class Meta:
         model = Cliente
         fields = ['cli_rut', 
-                    'respuesta',
                     'fecha_asignacion',
                     'fecha_gestion',
+                    'contactabilidad',
+                    'respuesta_cliente',
+                    'estado',
                     'fecha_reinsistencia',
-                    'estado_contacto_interesado',
+                    'contacto_cliente_interesado',
+                    'estado_cliente',
                     'fecha_firma',
-                    'postergacion',
-                    'canal_ccl',
-                    'canal_web',
-                    'eleccion_oferta']
+                    'estado_curse']
                     
         widgets = {'cli_rut': forms.HiddenInput(), 
                     'fecha_asignacion': AdminDateWidget(), 
