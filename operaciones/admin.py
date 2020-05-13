@@ -27,7 +27,8 @@ class OperacionAdmin(admin.ModelAdmin):
                     'familia',
                     'cpd',
                     'marca',
-                    'perfil_de_riesgo')
+                    'perfil_de_riesgo',
+                    'ope_monto_origen_pes')
     pass
 
 

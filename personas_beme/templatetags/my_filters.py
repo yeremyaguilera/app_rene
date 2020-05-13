@@ -1,5 +1,6 @@
 from django import template
 from django.contrib.humanize.templatetags.humanize import intcomma
+from info_complementaria.models import PeriodoGracia
 
 register = template.Library()
 
@@ -55,3 +56,15 @@ def porcentaje(number):
     return "{} %".format(number)
 
 register.filter('porcentaje', porcentaje)
+
+def num_cuo_to_plazo(num_cuo):
+    periodo_de_gracia = PeriodoGracia.objects.all().reverse()[0].periodo_de_gracia
+    return num_cuo + periodo_de_gracia
+
+register.filter('num_cuo_to_plazo', num_cuo_to_plazo)
+
+def string_to_num(string):
+    num = int(string)
+    return num
+
+register.filter('string_to_num', string_to_num)

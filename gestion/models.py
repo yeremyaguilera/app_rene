@@ -14,7 +14,7 @@ class Contraparte(models.Model):
     ejecutivo_contraparte = models.ForeignKey(EjecutivoComercial, on_delete= models.DO_NOTHING, related_name='ejecutivo_contraparte')
 
     def __str__(self):
-        return str(self.ejecutivo_sin_acceso) + ' : '+ str(self.ejecutivo_contraparte)
+        return str(self.ejecutivo_contraparte)
 
 class ActualizaGestion(models.Model):
     class Meta:

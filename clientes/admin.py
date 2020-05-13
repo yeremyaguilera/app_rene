@@ -72,12 +72,12 @@ class OfertaClienteAdmin(admin.ModelAdmin):
     list_display = ('cliente',
                     'fecha_de_oferta',
                     'tasa_oferta_1',
-                    'plazo_oferta_1',
+                    'num_cuotas_oferta_1',
                     'ft_monto_oferta_1',
                     'rebaja_oferta_1',
                     'ft_total_a_pagar_oferta_1',
                     'tasa_oferta_2',
-                    'plazo_oferta_2',
+                    'num_cuotas_oferta_2',
                     'ft_monto_oferta_2',
                     'rebaja_oferta_2',
                     'ft_total_a_pagar_oferta_2')
@@ -88,10 +88,10 @@ class OfertaClienteAdmin(admin.ModelAdmin):
     fieldsets = (('Información',
                                             {'fields': (('cliente'    , 'fecha_de_oferta'))}),
                  ('Oferta 1',
-                                            {'fields': (('ope_tasa_oferta_1'    , 'plazo_oferta_1'),
+                                            {'fields': (('ope_tasa_oferta_1'    , 'num_cuotas_oferta_1'),
                                                         ('monto_oferta_1', 'per_rebaja_oferta_1', 'total_a_pagar_oferta_1'))}),
                  ('Oferta 2',
-                                            {'fields': (('ope_tasa_oferta_2'    , 'plazo_oferta_2'),
+                                            {'fields': (('ope_tasa_oferta_2'    , 'num_cuotas_oferta_2'),
                                                         ('monto_oferta_2', 'per_rebaja_oferta_2', 'total_a_pagar_oferta_2'))}))
 
     pass

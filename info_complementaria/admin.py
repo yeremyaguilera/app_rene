@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import UF, TasaSeguro
+from .models import UF, TasaSeguro, TasaOferta, PeriodoGracia
 # Register your models here.
 
 @admin.register(UF)
@@ -18,3 +18,13 @@ class TasaSeguroAdmin(admin.ModelAdmin):
 
     fields = ('plazo', 'valor_tasa')
     list_display = fields
+
+
+@admin.register(TasaOferta)
+class TasaOfertaAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(PeriodoGracia)
+class PeriodoGraciaAdmin(admin.ModelAdmin):
+    pass

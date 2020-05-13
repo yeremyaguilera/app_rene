@@ -36,3 +36,26 @@ class TasaSeguro(models.Model):
 
     def __str__(self):
         return str(self.plazo) + ' : ' + str(self.valor_tasa)
+    
+class PeriodoGracia(models.Model):
+
+    periodo_de_gracia = models.IntegerField(default = 0, blank=False)
+
+    class Meta:
+        verbose_name = "Periodo de Gracia"
+        verbose_name_plural = "Periodos de Gracia"
+
+    def __str__(self):
+        return 'Periodo de Gracia :' + str(self.periodo_de_gracia) + ' Meses'
+
+
+class TasaOferta(models.Model):
+
+    ope_tasa = models.FloatField(default = 0, blank=False, help_text="Debe estar en porcentaje %")
+
+    class Meta:
+        verbose_name = "Tasa de Oferta"
+        verbose_name_plural = "Tasas de Oferta"
+
+    def __str__(self):
+        return 'Tasa Oferta : ' + str(self.ope_tasa) + ' %'

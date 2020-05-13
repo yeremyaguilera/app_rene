@@ -2,7 +2,7 @@
 {% load my_filters %}
 {% block content %}
 <br></br>
-
+<a class="btn btn-info btn-sm pull-left active" href="/info_clientes/?q={{info_ofertas.cliente.cli_rut}}" type="submit" >Volver</a>
 <p><strong><h5>Detalle Oferta 1</h5></strong></p>
 <div class="row">
       <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
@@ -14,6 +14,7 @@
                     <tr>
                         <th>Tipo de Crédito</th>
                         <th>Monto Cuota</th>
+                        <th>N° Cuotas</th>
                         <th>Plazo</th>
                         <th>Monto Total Crédito</th>
                     </tr>
@@ -23,7 +24,8 @@
                     <tr>
                     <td>Crédito Comercial </td>
                     <td>{{info_ofertas.monto_c_oferta_1|currency}}</td>
-                    <td>{{info_ofertas.plazo_oferta_1}}</td>
+                    <td>{{info_ofertas.num_cuotas_oferta_1}}</td>
+                    <td>{{info_ofertas.num_cuotas_oferta_1|num_cuo_to_plazo}}</td>
                     <td>{{resumen_operaciones.saldo_sin_gar_comercial_final|currency}}</td>
                     </tr>
                   {% endif %}
@@ -32,7 +34,8 @@
                     <tr>
                     <td>Crédito Consumo </td>
                     <td>{{info_ofertas.monto_k_oferta_1|currency}}</td>
-                    <td>{{info_ofertas.plazo_oferta_1}}</td>
+                    <td>{{info_ofertas.num_cuotas_k_2}}</td>
+                    <td>{{info_ofertas.num_cuotas_k_2|num_cuo_to_plazo}}</td>
                     <td>{{resumen_operaciones.saldo_adeudado_consumo_final|currency}}</td>
                     </tr>
                   {% endif %}
@@ -41,7 +44,8 @@
                     <tr>
                     <td>Crédito Garantía 1 </td>
                     <td>{{info_ofertas.monto_gar_1_oferta_1|currency}}</td>
-                    <td>{{info_ofertas.plazo_oferta_1}}</td>
+                    <td>{{info_ofertas.num_cuotas_gar_1_oferta_1}}</td>
+                    <td>{{info_ofertas.num_cuotas_gar_1_oferta_1|num_cuo_to_plazo}}</td>
                     <td>{{resumen_operaciones.saldo_adeudado_gar_1_final|currency}}</td>
                     </tr>
                   {% endif %}
@@ -50,7 +54,8 @@
                     <tr>
                     <td>Crédito Garantía 2 </td>
                     <td>{{info_ofertas.monto_gar_2_oferta_1|currency}}</td>
-                    <td>{{info_ofertas.plazo_oferta_1}}</td>
+                    <td>{{info_ofertas.num_cuotas_gar_2_oferta_1}}</td>
+                    <td>{{info_ofertas.num_cuotas_gar_2_oferta_1|num_cuo_to_plazo}}</td>
                     <td>{{resumen_operaciones.saldo_adeudado_gar_2_final|currency}}</td>
                     </tr>
                   {% endif %}
@@ -59,7 +64,8 @@
                     <tr>
                     <td>Crédito Garantía 3 </td>
                     <td>{{info_ofertas.monto_gar_3_oferta_1|currency}}</td>
-                    <td>{{info_ofertas.plazo_oferta_1}}</td>
+                    <td>{{info_ofertas.num_cuotas_gar_3_oferta_1}}</td>
+                    <td>{{info_ofertas.num_cuotas_gar_3_oferta_1|num_cuo_to_plazo}}</td>
                     <td>{{resumen_operaciones.saldo_adeudado_gar_3_final|currency}}</td>
                     </tr>
                   {% endif %}
@@ -68,7 +74,8 @@
                     <tr>
                     <td>Crédito Garantía 4 </td>
                     <td>{{info_ofertas.monto_gar_4_oferta_1|currency}}</td>
-                    <td>{{info_ofertas.plazo_oferta_1}}</td>
+                    <td>{{info_ofertas.num_cuotas_gar_4_oferta_1}}</td>
+                    <td>{{info_ofertas.num_cuotas_gar_4_oferta_1|num_cuo_to_plazo}}</td>
                     <td>{{resumen_operaciones.saldo_adeudado_gar_4_final|currency}}</td>
                     </tr>
                   {% endif %}
@@ -90,6 +97,7 @@
                       <tr>
                           <th>Tipo de Crédito</th>
                           <th>Monto Cuota</th>
+                          <th>N° Cuotas</th>
                           <th>Plazo</th>
                           <th>Monto Total Crédito</th>
                       </tr>
@@ -99,7 +107,8 @@
                       <tr>
                       <td>Crédito Comercial </td>
                       <td>{{info_ofertas.monto_c_oferta_2|currency}}</td>
-                      <td>{{info_ofertas.plazo_oferta_2}}</td>
+                      <td>{{info_ofertas.num_cuotas_oferta_2}}</td>
+                      <td>{{info_ofertas.num_cuotas_oferta_2|num_cuo_to_plazo}}</td>
                       <td>{{resumen_operaciones.saldo_sin_gar_comercial_final|currency}}</td>
                       </tr>
                     {% endif %}
@@ -108,7 +117,8 @@
                       <tr>
                       <td>Crédito Consumo </td>
                       <td>{{info_ofertas.monto_k_oferta_2|currency}}</td>
-                      <td>{{info_ofertas.plazo_oferta_2}}</td>
+                      <td>{{info_ofertas.num_cuotas_k_2}}</td>
+                      <td>{{info_ofertas.num_cuotas_k_2|num_cuo_to_plazo}}</td>
                       <td>{{resumen_operaciones.saldo_adeudado_consumo_final|currency}}</td>
                       </tr>
                     {% endif %}
@@ -117,7 +127,8 @@
                       <tr>
                       <td>Crédito Garantía 1 </td>
                       <td>{{info_ofertas.monto_gar_1_oferta_2|currency}}</td>
-                      <td>{{info_ofertas.plazo_oferta_2}}</td>
+                      <td>{{info_ofertas.num_cuotas_gar_1_oferta_2}}</td>
+                      <td>{{info_ofertas.num_cuotas_gar_1_oferta_2|num_cuo_to_plazo}}</td>
                       <td>{{resumen_operaciones.saldo_adeudado_gar_1_final|currency}}</td>
                       </tr>
                     {% endif %}
@@ -126,7 +137,8 @@
                       <tr>
                       <td>Crédito Garantía 2 </td>
                       <td>{{info_ofertas.monto_gar_2_oferta_2|currency}}</td>
-                      <td>{{info_ofertas.plazo_oferta_2}}</td>
+                      <td>{{info_ofertas.num_cuotas_gar_2_oferta_2}}</td>
+                      <td>{{info_ofertas.num_cuotas_gar_2_oferta_2|num_cuo_to_plazo}}</td>
                       <td>{{resumen_operaciones.saldo_adeudado_gar_2_final|currency}}</td>
                       </tr>
                     {% endif %}
@@ -135,7 +147,8 @@
                       <tr>
                       <td>Crédito Garantía 3 </td>
                       <td>{{info_ofertas.monto_gar_3_oferta_2|currency}}</td>
-                      <td>{{info_ofertas.plazo_oferta_2}}</td>
+                      <td>{{info_ofertas.num_cuotas_gar_3_oferta_2}}</td>
+                      <td>{{info_ofertas.num_cuotas_gar_3_oferta_2|num_cuo_to_plazo}}</td>
                       <td>{{resumen_operaciones.saldo_adeudado_gar_3_final|currency}}</td>
                       </tr>
                     {% endif %}
@@ -144,7 +157,8 @@
                       <tr>
                       <td>Crédito Garantía 4 </td>
                       <td>{{info_ofertas.monto_gar_4_oferta_2|currency}}</td>
-                      <td>{{info_ofertas.plazo_oferta_2}}</td>
+                      <td>{{info_ofertas.num_cuotas_gar_4_oferta_2}}</td>
+                      <td>{{info_ofertas.num_cuotas_gar_4_oferta_2|num_cuo_to_plazo}}</td>
                       <td>{{resumen_operaciones.saldo_adeudado_gar_4_final|currency}}</td>
                       </tr>
                     {% endif %}

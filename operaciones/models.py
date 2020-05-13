@@ -21,6 +21,8 @@ class Operacion(models.Model):
     ope_tasa             = models.FloatField(verbose_name="Tasa")
     ope_valor_tasa_penal = models.FloatField(verbose_name="Tasa Penal")
     ope_cuotas_pagadas   = models.IntegerField(verbose_name="Cuotas Pagadas")
+    ope_monto_origen_pes = models.IntegerField(verbose_name="Monto Origen")
+    eficacia_gar         = models.FloatField(verbose_name="Eficacia de la Garantía")
 
     dop_dia_mra          = models.IntegerField(verbose_name="Días de Mora")
 
@@ -75,24 +77,30 @@ class ImpactoOperacion(models.Model):
 
     periodo_de_gracia = models.IntegerField(default = 0, blank=False)
 
-    saldo_adeudado_gar = models.IntegerField(default = 0, blank=False)
+    saldo_adeudado_gar   = models.IntegerField(default = 0, blank=False)
     saldo_adeudado_gar_1 = models.IntegerField(default = 0, blank=False)
     saldo_adeudado_gar_2 = models.IntegerField(default = 0, blank=False)
     saldo_adeudado_gar_3 = models.IntegerField(default = 0, blank=False)
     saldo_adeudado_gar_4 = models.IntegerField(default = 0, blank=False)
 
-    saldo_adeudado_gar_final = models.IntegerField(default = 0, blank=False)
+    saldo_adeudado_gar_final   = models.IntegerField(default = 0, blank=False)
     saldo_adeudado_gar_1_final = models.IntegerField(default = 0, blank=False)
     saldo_adeudado_gar_2_final = models.IntegerField(default = 0, blank=False)
     saldo_adeudado_gar_3_final = models.IntegerField(default = 0, blank=False)
     saldo_adeudado_gar_4_final = models.IntegerField(default = 0, blank=False)
 
-    saldo_sin_gar_comercial = models.IntegerField(default = 0, blank=True, null=True)
-
+    saldo_sin_gar_comercial       = models.IntegerField(default = 0, blank=True, null=True)
     saldo_sin_gar_comercial_final = models.IntegerField(default = 0, blank=True, null=True)
 
-    saldo_adeudado_consumo = models.IntegerField(default = 0, blank=True, null=True)
+    saldo_adeudado_consumo       = models.IntegerField(default = 0, blank=True, null=True)
     saldo_adeudado_consumo_final = models.IntegerField(default = 0, blank=True, null=True)
+
+    num_cuotas_max_k            = models.IntegerField(default = 0, blank=True, null=True)
+    num_cuotas_max_fogape_gar_1 = models.IntegerField(default = 0, blank=True, null=True)
+    num_cuotas_max_fogape_gar_2 = models.IntegerField(default = 0, blank=True, null=True)
+    num_cuotas_max_fogape_gar_3 = models.IntegerField(default = 0, blank=True, null=True)
+    num_cuotas_max_fogape_gar_4 = models.IntegerField(default = 0, blank=True, null=True)
+
 
     pago_mensual = models.IntegerField(default = 0, blank=False)
 

@@ -96,6 +96,7 @@ class Cliente(models.Model):
     fecha_asignacion = models.DateField(blank=True)
     
     fecha_gestion    = models.DateField(blank=True) 
+    
 
     contactabilidad = models.CharField(max_length = 50, 
                                         choices = CONTACTABILIDAD,
@@ -140,31 +141,39 @@ class OfertaCliente(models.Model):
     
     fecha_de_oferta   = models.DateField(null=False, blank=False)
 
-    ope_tasa_oferta_1       = models.FloatField(default = 0, blank=False)
-    plazo_oferta_1          = models.IntegerField(default = 1, blank=False)
-    monto_oferta_1          = models.IntegerField(default = 0, blank=False)
-    monto_c_oferta_1        = models.IntegerField(default = 0, blank=False)
-    monto_k_oferta_1        = models.IntegerField(default = 0, blank=False)
-    monto_gar_1_oferta_1    = models.IntegerField(default = 0, blank=False)
-    monto_gar_2_oferta_1    = models.IntegerField(default = 0, blank=False)
-    monto_gar_3_oferta_1    = models.IntegerField(default = 0, blank=False)
-    monto_gar_4_oferta_1    = models.IntegerField(default = 0, blank=False)
-    per_rebaja_oferta_1     = models.FloatField(default = 0, blank=False)
-    total_a_pagar_oferta_1  = models.IntegerField(default = 0, blank=False)
+    ope_tasa_oferta_1         = models.FloatField(default = 0, blank=False)
+    num_cuotas_oferta_1       = models.IntegerField(default = 1, blank=False)
+    monto_oferta_1            = models.IntegerField(default = 0, blank=False)
+    monto_c_oferta_1          = models.IntegerField(default = 0, blank=False)
+    monto_k_oferta_1          = models.IntegerField(default = 0, blank=False)
+    num_cuotas_k_1            = models.IntegerField(default = 0, blank=False)
+    monto_gar_1_oferta_1      = models.IntegerField(default = 0, blank=False)
+    num_cuotas_gar_1_oferta_1 = models.IntegerField(default = 0, blank=False)
+    monto_gar_2_oferta_1      = models.IntegerField(default = 0, blank=False)
+    num_cuotas_gar_2_oferta_1 = models.IntegerField(default = 0, blank=False)
+    monto_gar_3_oferta_1      = models.IntegerField(default = 0, blank=False)
+    num_cuotas_gar_3_oferta_1 = models.IntegerField(default = 0, blank=False)
+    monto_gar_4_oferta_1      = models.IntegerField(default = 0, blank=False)
+    num_cuotas_gar_4_oferta_1 = models.IntegerField(default = 0, blank=False)
+    per_rebaja_oferta_1       = models.FloatField(default = 0, blank=False)
+    total_a_pagar_oferta_1    = models.IntegerField(default = 0, blank=False)
 
-
-
-    ope_tasa_oferta_2       = models.FloatField(default = 0, blank=False)
-    plazo_oferta_2          = models.IntegerField(default = 1, blank=False)
-    monto_oferta_2          = models.IntegerField(default = 0, blank=False)
-    monto_c_oferta_2        = models.IntegerField(default = 0, blank=False)
-    monto_k_oferta_2        = models.IntegerField(default = 0, blank=False)
-    monto_gar_1_oferta_2    = models.IntegerField(default = 0, blank=False)
-    monto_gar_2_oferta_2    = models.IntegerField(default = 0, blank=False)
-    monto_gar_3_oferta_2    = models.IntegerField(default = 0, blank=False)
-    monto_gar_4_oferta_2    = models.IntegerField(default = 0, blank=False)
-    per_rebaja_oferta_2     = models.FloatField(default = 0, blank=False)
-    total_a_pagar_oferta_2  = models.IntegerField(default = 0, blank=False)
+    ope_tasa_oferta_2         = models.FloatField(default = 0, blank=False)
+    num_cuotas_oferta_2       = models.IntegerField(default = 1, blank=False)
+    monto_oferta_2            = models.IntegerField(default = 0, blank=False)
+    monto_c_oferta_2          = models.IntegerField(default = 0, blank=False)
+    monto_k_oferta_2          = models.IntegerField(default = 0, blank=False)
+    num_cuotas_k_2            = models.IntegerField(default = 0, blank=False)
+    monto_gar_1_oferta_2      = models.IntegerField(default = 0, blank=False)
+    num_cuotas_gar_1_oferta_2 = models.IntegerField(default = 0, blank=False)
+    monto_gar_2_oferta_2      = models.IntegerField(default = 0, blank=False)
+    num_cuotas_gar_2_oferta_2 = models.IntegerField(default = 0, blank=False)
+    monto_gar_3_oferta_2      = models.IntegerField(default = 0, blank=False)
+    num_cuotas_gar_2_oferta_2 = models.IntegerField(default = 0, blank=False)
+    monto_gar_4_oferta_2      = models.IntegerField(default = 0, blank=False)
+    num_cuotas_gar_4_oferta_2 = models.IntegerField(default = 0, blank=False)
+    per_rebaja_oferta_2       = models.FloatField(default = 0, blank=False)
+    total_a_pagar_oferta_2    = models.IntegerField(default = 0, blank=False)
 
     def __str__(self):
         return self.cliente.__str__() + ': '+ str(self.fecha_de_oferta)
