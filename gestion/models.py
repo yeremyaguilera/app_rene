@@ -1,5 +1,5 @@
 from django.db import models
-from personas_beme.models import EjecutivoComercial
+from personas_beme.models import Persona
 import datetime
 
 
@@ -10,22 +10,26 @@ class Contraparte(models.Model):
         verbose_name = "Contrapartes"
         verbose_name_plural = "Contrapartes"
 
-    ejecutivo_sin_acceso  = models.ForeignKey(EjecutivoComercial, on_delete= models.DO_NOTHING, related_name='ejecutivo_sin_acceso')
-    ejecutivo_contraparte = models.ForeignKey(EjecutivoComercial, on_delete= models.DO_NOTHING, related_name='ejecutivo_contraparte')
+    gestor_sin_acceso  = models.ForeignKey(Persona, on_delete= models.DO_NOTHING, related_name='gestor_sin_acceso')
+    contraparte        = models.ForeignKey(Persona, on_delete= models.DO_NOTHING, related_name='contraparte')
 
     def __str__(self):
-        return str(self.ejecutivo_contraparte)
+        return str(self.contraparte)
+
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'gestiones/{}/{}/{}'.format(today_srt, instance.gestor.codigo_persona_beme, filename)
 
 class ActualizaGestion(models.Model):
     class Meta:
         verbose_name = "Actualizador de Gestión"
         verbose_name_plural = "Actualizados de Gestión"
 
-    ejecutivo = models.ForeignKey(EjecutivoComercial, on_delete= models.DO_NOTHING, related_name='ejecutivo')
-    fecha     = models.DateField(auto_now_add=True, blank=True) 
+    gestor = models.ForeignKey(Persona, on_delete= models.DO_NOTHING, related_name='Gestor')
+    fecha  = models.DateField(auto_now_add=True, blank=True) 
 
-    info_gestion = models.FileField(upload_to='gestiones/'+ today_srt, blank = True, null=True, help_text="Debe ser el archivo de gestión del ejecutivo")
+    info_gestion = models.FileField(upload_to=user_directory_path, blank = True, null=True, help_text="Debe ser el archivo de gestión")
 
     def __str__(self):
-        return str(self.ejecutivo) + ' : '+ str(self.fecha)
+        return str(self.gestor) + ' : '+ str(self.fecha)
 

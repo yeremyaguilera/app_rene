@@ -5,7 +5,7 @@ from personas_beme.models import MODULOS_CENTRO, MODULOS_NORTE, MODULOS_SUR
 from personas_beme.models import SUCURSALES_CENTRO, SUCURSALES_NORTE, SUCURSALES_SUR
 from personas_beme.models import ZONAS
 
-from personas_beme.models import EjecutivoComercial
+from personas_beme.models import EjecutivoComercial, Persona
 
 # Create your models here.
 CONTACTABILIDAD = (('CON_CONTACTO', 'Contactado'), 
@@ -44,7 +44,7 @@ class Cliente(models.Model):
     cli_nom = models.CharField(max_length=100)
 
     ejecutivo_cartera = models.ForeignKey(EjecutivoComercial, on_delete = models.SET_NULL, null=True, related_name='pertenece_a_la_cartera')
-    ejecutivo_gestor  = models.ForeignKey(EjecutivoComercial, on_delete = models.SET_NULL, null=True, related_name='actualmente_gestionando')
+    gestor  = models.ForeignKey(Persona, on_delete = models.SET_NULL, null=True, blank = True, related_name='actualmente_gestionando')
 
 
     zona_cli = models.CharField(max_length = 30, 
@@ -142,7 +142,7 @@ class OfertaCliente(models.Model):
     fecha_de_oferta   = models.DateField(null=False, blank=False)
 
     ope_tasa_oferta_1         = models.FloatField(default = 0, blank=False)
-    num_cuotas_oferta_1       = models.IntegerField(default = 1, blank=False)
+    num_cuotas_oferta_1       = models.IntegerField(null=True, default = 1, blank=False)
     monto_oferta_1            = models.IntegerField(default = 0, blank=False)
     monto_c_oferta_1          = models.IntegerField(default = 0, blank=False)
     monto_k_oferta_1          = models.IntegerField(default = 0, blank=False)

@@ -19,7 +19,7 @@ class Operacion(models.Model):
     dop_mnt_cuo          = models.IntegerField(verbose_name="Monto Cuota")
     dop_sdo_tot          = models.IntegerField(verbose_name="Saldo Total")
     ope_tasa             = models.FloatField(verbose_name="Tasa")
-    ope_valor_tasa_penal = models.FloatField(verbose_name="Tasa Penal")
+    ope_tasa_penal_diaria = models.FloatField(verbose_name="Tasa Penal Diaria")
     ope_cuotas_pagadas   = models.IntegerField(verbose_name="Cuotas Pagadas")
     ope_monto_origen_pes = models.IntegerField(verbose_name="Monto Origen")
     eficacia_gar         = models.FloatField(verbose_name="Eficacia de la Garantía")

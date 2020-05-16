@@ -35,7 +35,7 @@ class TasaSeguro(models.Model):
     valor_tasa = models.DecimalField(max_digits=7, decimal_places=6, default=0)
 
     def __str__(self):
-        return str(self.plazo) + ' : ' + str(self.valor_tasa)
+        return "Plazo : " + str(self.plazo) + ' : ' + str(self.valor_tasa) + "%"
     
 class PeriodoGracia(models.Model):
 
@@ -59,3 +59,4 @@ class TasaOferta(models.Model):
 
     def __str__(self):
         return 'Tasa Oferta : ' + str(self.ope_tasa) + ' %'
+

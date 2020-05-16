@@ -19,7 +19,7 @@ class PersonaAdmin(admin.ModelAdmin, ExportXLSXMixin):
                     'tel_cel_1',
                     'tel_cel_2',
                     'ejecutivo_cartera',
-                    'ejecutivo_gestor',
+                    'gestor',
                     'zona_cli',
                     'modulo_cli',
                     'sucursal_cli')
@@ -31,7 +31,7 @@ class PersonaAdmin(admin.ModelAdmin, ExportXLSXMixin):
                                                         ('tel_fijo_1', 'tel_fijo_2', 'tel_cel_1', 'tel_cel_2'),
                                                         ('direccion_particular', 'direccion_comercial'),
                                                         'zona_cli'  , 'modulo_cli', 'sucursal_cli',
-                                                        'ejecutivo_cartera', 'ejecutivo_gestor', 'estado_diario', 'postergacion','canal_ccl', 'canal_web')}),
+                                                        'ejecutivo_cartera', 'gestor', 'estado_diario', 'postergacion','canal_ccl', 'canal_web')}),
                  ('Información de Gestión',
                                             {'fields': (('fecha_asignacion', 'fecha_gestion'),
                                                         'contactabilidad', 'respuesta_cliente', 'estado', 'fecha_reinsistencia', 
@@ -41,7 +41,7 @@ class PersonaAdmin(admin.ModelAdmin, ExportXLSXMixin):
 @admin.register(OfertaCliente)
 class OfertaClienteAdmin(admin.ModelAdmin):
 
-    list_filter = ('cliente__zona_cli', 'cliente__ejecutivo_gestor',)
+    list_filter = ('cliente__zona_cli', 'cliente__gestor',)
 
     def ft_monto_oferta_1(self, obj):
         return '$ {:,}'.format(obj.monto_oferta_1)

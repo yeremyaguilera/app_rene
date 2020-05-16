@@ -4,6 +4,7 @@ from info_complementaria.models import PeriodoGracia
 
 register = template.Library()
 
+
 def bolean_to_value(T_o_F):
     if T_o_F == True:
         return "SI"

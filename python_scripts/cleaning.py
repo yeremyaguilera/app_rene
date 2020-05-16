@@ -47,7 +47,12 @@ def normalize_df(df):
     df.columns = df.columns.str.lower()
     df.columns = df.columns.str.strip()
     df.columns = df.columns.str.replace(' ', '_')
-    
+    df.columns = df.columns.str.replace("á", "a")
+    df.columns = df.columns.str.replace("é", "e")
+    df.columns = df.columns.str.replace("í", "i")
+    df.columns = df.columns.str.replace("ó", "o")
+    df.columns = df.columns.str.replace("ú", "u")
+
     df = limpia_espacios(df)
     
     return df
@@ -107,6 +112,7 @@ def transform_operaciones(df):
     df["primer_ven"]           = df.apply(lambda x: x.prox_ven if str(x.primer_ven) == 'NaT' else x.primer_ven, axis = 1)
     df["eficacia_gar"]         = df["eficacia_gar"].replace(np.nan, 0)
     df["ope_valor_tasa_penal"] = df["ope_valor_tasa_penal"].replace(np.nan, df["ope_valor_tasa_penal"].max())
+    df["ope_tasa_penal_diaria"] = df["ope_valor_tasa_penal"]/365
     df["cpd"]                  = df.apply(lambda x: x.dec_cpd if str(x.cpd) == 'nan' else x.cpd, axis = 1)
     df["num_ope"]              = df.apply(lambda x: x.dop_num_ope if str(x.num_ope) == 'nan' else x.num_ope, axis = 1)
     df["perfil_de_riesgo"].replace(np.nan, "BUENO", inplace = True)
@@ -115,6 +121,7 @@ def transform_operaciones(df):
     df["ope_cuotas_pagadas"].replace(np.nan, 0, inplace = True)
     df["ope_num_mes_cuo"].replace(np.nan, 1, inplace = True)
     df["dop_mnt_cuo"]      = df.apply(lambda x: x["dop_sdo_tot"]/x["ope_cant_cuo"] if ((str(x["dop_mnt_cuo"]) == "nan") | (x["dop_mnt_cuo"] == 0)) & (x["ope_cant_cuo"] != 0) else x["dop_mnt_cuo"], axis = 1)
+
 
     return df
 

@@ -1,11 +1,12 @@
 from django.db import models
 
+
 # Create your models here.
 STATUS_PERSONAS = (("CASA_SIN_VDI", "En casa sin acceso remoto"),
                     ("CASA_CON_VDI", "En casa con acceso remoto"),
                     ("EN_SUCURSAL", "En Sucursal"))
 
-CARGOS = (("ASESOR", "Asesor Comercial de Riesgo"), 
+CARGOS = (("ASESOR_COMERCIAL", "Asesor Comercial de Riesgo"), 
             ("EJECUTIVO_COMERCIAL", "Ejecutivo Comercial"),
             ("ASISTENTE_COMERCIAL", "Asistente Comercial"))
 
@@ -69,11 +70,11 @@ SUCURSALES_SUR = (('SUBGERENCIA_REGIONAL_VII_REGION', 'SUR: Subgerencia Regional
                     ('LINARES'                      , 'SUR: LINARES'))
 
 class Persona(models.Model):
-    codigo_ejecutivo = models.IntegerField(primary_key=True)
-    nombre   = models.CharField(max_length = 50)
-    apellido = models.CharField(max_length = 50)
+    codigo_persona_beme = models.IntegerField(primary_key=True)
+    nombre           = models.CharField(max_length = 50)
+    apellido         = models.CharField(max_length = 50)
     apellido_materno = models.CharField(max_length = 50)
-    email = models.EmailField()
+    email            = models.EmailField()
 
     cargo = models.CharField(max_length = 30, 
                                         choices = CARGOS, 
@@ -98,10 +99,14 @@ class Persona(models.Model):
                                         blank = False, 
                                         null = False)
 
+
+    def __str__(self):
+        return self.cargo +': '+ str(self.nombre) + " " + str(self.apellido)
+
     
 class AsesorManager(models.Manager):
     def get_queryset(self):
-        return super(AsesorManager, self).get_queryset().filter(cargo="ASESOR")
+        return super(AsesorManager, self).get_queryset().filter(cargo="ASESOR_COMERCIAL")
 
 class Asesor(Persona):
     objects = AsesorManager()

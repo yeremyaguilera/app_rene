@@ -14,11 +14,11 @@ def saldos_insolutos(serie):
 def interes_mora(serie):
     #print(serie.dop_dia_mra-30, serie.dop_mnt_cuo, serie.ope_tasa_penal_diaria)
     if serie.dop_mnt_cuo == 0:
-        interes_mra = serie.dop_dia_mra * serie.dop_sdo_tot * serie.ope_tasa_penal_diaria
+        interes_mra = serie.dop_dia_mra * serie.dop_sdo_tot * serie.ope_tasa_penal_diaria/100
     else:
-        interes_mra = serie.dop_dia_mra * serie.dop_mnt_cuo * serie.ope_tasa_penal_diaria
+        interes_mra = serie.dop_dia_mra * serie.dop_mnt_cuo * serie.ope_tasa_penal_diaria/100
         if serie.dop_dia_mra > 30:
-            interes_mra += (serie.dop_dia_mra-30) * serie.dop_mnt_cuo * serie.ope_tasa_penal_diaria
+            interes_mra += (serie.dop_dia_mra-30) * serie.dop_mnt_cuo * serie.ope_tasa_penal_diaria/100
             
     return int(interes_mra)
 
@@ -89,7 +89,6 @@ def info_impacto(df, valor_diario_uf, periodo_de_gracia):
     df["validez_2"]             = df["fecha_pago_final"]
     df["interes_por_recibir"]   = df.apply(lambda x: intereses_restantes(x), axis = 1)
     df["saldo_insoluto"]        = df.apply(lambda x: saldos_insolutos(x), axis = 1)
-    df["ope_tasa_penal_diaria"] = df["ope_valor_tasa_penal"]/100/365
     df["interes_moratorio"]     = df.apply(lambda x: interes_mora(x), axis = 1)
     df["cuotas_atrasadas"]      = df.apply(lambda x: int(np.ceil(x.dop_dia_mra/30)), axis = 1)
     df["cuota_uf"]              = df.apply(lambda x: cuota_UF(x, valor_diario_uf), axis = 1)
@@ -157,8 +156,8 @@ def info_impacto(df, valor_diario_uf, periodo_de_gracia):
     return df
 
 def string_intervalo(string):
-    lista = string.split(" a ")
-    rango = range(int(lista[0]), int(lista[1])+1)
+    lista = string.split(", ")
+    rango = range(int(lista[0].replace("[", "")), int(lista[1].replace("]", ""))+1)
     return rango
 
 
@@ -176,8 +175,8 @@ def consolidado_info_impacto(df_operacion_info_impacto, df_tasas_seguro, periodo
         
         plazo_restante = df_info_oferta.loc[index, "plazo_restante"]
         for index_tasa, each_tasa in df_tasas_seguro.iterrows():
-            if plazo_restante in string_intervalo(each_tasa["plazo_del_credito"]):
-                df_info_oferta.loc[index, "tasa_seguro"] = each_tasa["tasa_final"]
+            if int(plazo_restante) in string_intervalo(each_tasa["plazo"]):
+                df_info_oferta.loc[index, "tasa_seguro"] = float(each_tasa["valor_tasa"])/100
         
         filtro_mora_cobranza = operaciones_por_cliente[operaciones_por_cliente["operacion_k"] == 0]
         
@@ -248,7 +247,7 @@ def consolidado_info_impacto(df_operacion_info_impacto, df_tasas_seguro, periodo
             else:
                 df_info_oferta.loc[index, "num_cuotas_max_fogape_gar_2"] = operaciones_por_cliente[operaciones_por_cliente["acum_garantia"] == 2]["antiguedad_fogape"].values - periodo_de_gracia
         else:
-            df_info_oferta.loc[index, "num_cuotas_max_fogape_gar_1"] = 0
+            df_info_oferta.loc[index, "num_cuotas_max_fogape_gar_2"] = 0
 
         if df_info_oferta.loc[index, "saldo_adeudado_gar_3_final"] != 0:
             if operaciones_por_cliente[operaciones_por_cliente["acum_garantia"] == 3]["antiguedad_fogape"].values - periodo_de_gracia < 0:

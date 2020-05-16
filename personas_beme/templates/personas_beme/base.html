@@ -11,71 +11,67 @@
   
     <title>App Rene</title>
 
-    <!-- <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>-->
-    <!-- <script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>-->
-
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/widgets.css' %}"/>
-
-
-    <!-- Custom styles for this template-->
+    <link rel="stylesheet" type="text/css" href="{% static 'DataTables/datatables.css' %}">
     <link rel="stylesheet"  href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-
-    <link href="{% static 'DataTables/DataTables-1.10.20/css/jquery.dataTables.min.css' %}" />
-    
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/responsive.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/nav_sidebar.css' %}">
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm py-1 navbar-dark bg-dark">
       <a href="/admin" class="navbar-brand">App Rene Admin</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="/info_clientes">Clientes</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/gestion">Gestión</a>
-            </li>
-            <li class="nav-item">
-              <form method = "GET" class="form-inline">
-                <input name="q" class="form-control mr-sm-1" type="search" placeholder="Búsqueda por RUT..." aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-              </form>
-            </li>
+          <ul class="navbar-nav">
+            {% if 'Ejecutivos' in permisos %}
+              <li class="navbar active">
+                <a class="nav-link" href="/gestion"><span class="mb-0 h6">Gestión</span></a>
+              </li>
+            {% elif 'Asistentes' in permisos %}
+              <li class="navbar active">
+                <a class="nav-link" href="/gestion"><span class="mb-0 h6">Gestión</span></a>
+              </li>
+            {% endif %}
+            {% if 'Asesores' in permisos %}
+              <li class="navbar active">
+                <a class="nav-link" href="/asignador_de_cartera"><span class="mb-0 h6">Asignación de Cartera</span></a>
+              </li>
+
+              <li class="navbar active">
+                <a class="nav-link" href="/actualizador_de_gestion"><span class="mb-0 h6">Actualizador de Gestión</span></a>
+              </li>
+            {% endif %}
+              <li class="navbar">
+                <form method = "GET" class="form-inline" action="/info_clientes/?q={{cliente.cli_rut}}">
+                  <input name="q" class="form-control mr-sm-1" type="search" placeholder="Búsqueda por RUT..." aria-label="Search">
+                  <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Buscar</button>
+                </form>
+              </li>
           </ul>
-        </div>
-        <span class="navbar-text">
-          {{ ejecutivo.nombre }} {{ ejecutivo.apellido }} {{ ejecutivo.apellido_materno }}
-        </span>
+      </div>
+      <span class="navbar-text">
+        {{ user_instance.first_name }} {{ user_instance.last_name }}
+      </span>
     </nav>
 
 <div class="container">
 {% block content %}
 {% endblock %}
 </div>
-  <script type="text/javascript" src="/jsi18n/"></script>
-  <!-- <script type="text/javascript" src="/admin/jsi18n/"></script>-->
-  <script type="text/javascript" src="/static/admin/js/core.js"></script>
-  <!-- <script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js">        </script>-->
-  <!-- <script type="text/javascript" src="/static/admin/js/jquery.min.js"></script> -->
-  <!-- <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script> -->
-  <script type="text/javascript" src="/static/admin/js/actions.min.js"></script>
-  <script type="text/javascript" src="/static/admin/js/calendar.js"></script>
-  <script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
+<script type="text/javascript" src="/jsi18n/"></script>
+<script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/actions.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/calendar.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/admin/DateTimeShortcuts.js' %}"></script>
 
+<script type="text/javascript" charset="utf8" src="{% static '/DataTables/DataTables-1.10.21/js/dataTables.bootstrap.js' %}"></script>  
 
-  <script charset="utf8" src="{% static 'DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js' %}"></script>  
-  <script>
-      $(document).ready( function () {
-        $('#tabla_gestion').DataTable();
-        } );
-  </script>
-  <!--script src="{% static 'materialize/js/materialize.min.js"></script>-->
-  <script type="text/javascript" src="{% static '/bootstrap/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static '/bootstrap/js/bootstrap.js' %}"></script>
 
 </body>
 </html>

@@ -16,7 +16,7 @@ class OperacionAdmin(admin.ModelAdmin):
                     'dop_mnt_cuo',
                     'dop_sdo_tot',
                     'ope_tasa',
-                    'ope_valor_tasa_penal',
+                    'ope_tasa_penal_diaria',
                     'ope_cuotas_pagadas',
                     'dop_dia_mra',
                     'fecha_curse',

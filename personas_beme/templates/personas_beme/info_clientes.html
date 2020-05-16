@@ -50,15 +50,21 @@
               <th>Preaprobado Renegociación : </th>
               <td>{{info_cliente.preaprobados_reng|bolean_to_value}}</td>
           </tr>
+          <tr>
+              <th>Gestor : </th>
+              <td>{{info_cliente.gestor}}</td>
+          </tr>
         </table>
         <p> </p>
         <div class="col s10 m8 l6">
-          <form action="" method="POST">{% csrf_token %}
-                 <table>
-                    {{ db_form }}
-                 </table>
-                 <input class="btn btn-info btn-sm pull-left active" name="db_button" type="submit" style="width:auto" value="Guardar Cambios">
-          </form>
+            <form action="" method="POST">{% csrf_token %}
+                  <table>
+                      {{ db_form }}
+                  </table>
+                  {% if info_cliente.gestor.codigo_persona_beme == persona_instance.codigo_persona_beme%}
+                    <input class="btn btn-info btn-sm pull-left active" name="db_button" type="submit" style="width:auto" value="Guardar Cambios">
+                  {% endif %}
+            </form>
         </div>  
       </div>
 
@@ -79,7 +85,7 @@
                 <div class="card-body">
                   <table id="vertical-1">
                     <tr><th>Tasa : </th><td>{{info_oferta.ope_tasa_oferta_1|porcentaje}}</td></tr>
-                    <tr><th>Plazo : </th><td>{{info_oferta.plazo_oferta_1}}</td></tr>
+                    <tr><th>Plazo : </th><td>{{info_oferta.num_cuotas_oferta_1}}</td></tr>
                     <tr><th>Monto : </th><td>{{info_oferta.monto_oferta_1|currency}}</td></tr>
                     <tr><th>Porcentaje de Rebaja : </th><td>{{info_oferta.per_rebaja_oferta_1|porcentaje}}</td></tr>
                     <tr><th>Monto Total a Pagar : </th><td>{{info_oferta.total_a_pagar_oferta_1|currency}}</td></tr>
@@ -94,7 +100,7 @@
                 <div class="card-body">
                   <table id="vertical-1">
                     <tr><th>Tasa :                 </th><td>{{info_oferta.ope_tasa_oferta_2|porcentaje}}</td></tr>
-                    <tr><th>Plazo :                </th><td>{{info_oferta.plazo_oferta_2}}</td></tr>
+                    <tr><th>Plazo :                </th><td>{{info_oferta.num_cuotas_oferta_2}}</td></tr>
                     <tr><th>Monto :                </th><td>{{info_oferta.monto_oferta_2|currency}}</td></tr>
                     <tr><th>Porcentaje de Rebaja : </th><td>{{info_oferta.per_rebaja_oferta_2|porcentaje}}</td></tr>
                     <tr><th>Monto Total a Pagar :  </th><td>{{info_oferta.total_a_pagar_oferta_2|currency}}</td></tr>
@@ -104,13 +110,15 @@
 
             <br />
             <div>
-              <form action="" method="POST">{% csrf_token %}
-                <table>
-                  {{ contrapartes }}
-               </table>              
-                <input class="btn btn-info btn-sm pull-left active" name="email_button" type="submit" style="width:auto" value="Enviar email">
-                <input type="hidden" id="cli_rut" name="cli_rut" value={{info_cliente.cli_rut}}>
-              </form>
+              {% if info_cliente.gestor.codigo_persona_beme == persona_instance.codigo_persona_beme%}
+                <form action="" method="POST">{% csrf_token %}
+                  <table>
+                    {{ contrapartes }}
+                </table>              
+                  <input class="btn btn-info btn-sm pull-left active" name="email_button" type="submit" style="width:auto" value="Enviar email">
+                  <input type="hidden" id="cli_rut" name="cli_rut" value={{info_cliente.cli_rut}}>
+                </form>
+              {%endif%}
             </div>
       </div>
 

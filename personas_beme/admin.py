@@ -37,13 +37,13 @@ class ExportXLSXMixin:
 
 class PersonaAdmin(admin.ModelAdmin, ExportXLSXMixin):
 
-    list_display_links = ('codigo_ejecutivo', 'nombre')
+    list_display_links = ('codigo_persona_beme', 'nombre')
 
-    search_fields = ('apellido', 'nombre', 'apellido_materno', 'codigo_ejecutivo')
+    search_fields = ('apellido', 'nombre', 'apellido_materno', 'codigo_persona_beme')
 
     actions = ["export_as_xlsx"]
 
-    fields = ('codigo_ejecutivo', 
+    fields = ('codigo_persona_beme', 
                 'nombre',
                 'apellido',
                 'apellido_materno',
@@ -75,7 +75,7 @@ class EjecutivoComercialAdmin(PersonaAdmin):
 
     ordering = ['nombre']
 
-    fields = ('codigo_ejecutivo', 
+    fields = ('codigo_persona_beme', 
                 'nombre',
                 'apellido',
                 'apellido_materno',
