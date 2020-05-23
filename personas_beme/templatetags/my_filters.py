@@ -18,7 +18,7 @@ register.filter('bolean_to_value', bolean_to_value)
 
 def currency(dollars):
     dollars = int(dollars)
-    return "$ %s" % (intcomma(dollars))
+    return "$ {}".format(intcomma(dollars))
 
 register.filter('currency', currency)
 

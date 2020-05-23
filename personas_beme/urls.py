@@ -27,4 +27,5 @@ urlpatterns = [
     path('jsi18n/'        , JavaScriptCatalog.as_view(), name = 'javascript-catalog'),
     path('actualizador_de_gestion/' , views.actualizador_de_gestion     , name = 'actualizador_de_gestion'),
     path('asignador_de_cartera/'    , views.asignador_de_cartera       , name = 'asignador_de_cartera'),
+    path('contrapartes/'    , views.contrapartes       , name = 'contrapartes'),
 ]

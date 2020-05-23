@@ -13,7 +13,7 @@ class Operacion(models.Model):
 
     dop_num_ope = models.IntegerField(primary_key=True, verbose_name="Número de Operación")
 
-    cliente = models.ForeignKey(Cliente,  on_delete = models.DO_NOTHING)
+    cliente = models.ForeignKey(Cliente,  on_delete = models.CASCADE)
 
     ope_cant_cuo         = models.IntegerField(verbose_name="Plazo")
     dop_mnt_cuo          = models.IntegerField(verbose_name="Monto Cuota")
@@ -58,8 +58,9 @@ class ImpactoOperacion(models.Model):
     class Meta:
         verbose_name = "Impacto de Operacion"
         verbose_name_plural = "Impacto de Operaciones"
+        unique_together = ("cliente", "fecha_de_impacto")
 
-    cliente           = models.OneToOneField(Cliente,  on_delete = models.DO_NOTHING)
+    cliente           = models.OneToOneField(Cliente,  on_delete = models.CASCADE)
 
     fecha_de_impacto  = models.DateField(null=False, blank=False)
 

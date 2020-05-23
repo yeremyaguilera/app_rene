@@ -14,10 +14,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/widgets.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'DataTables/datatables.css' %}">
-    <link rel="stylesheet"  href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-table-master/dist/bootstrap-table.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/nav_sidebar.css' %}">
+
+
+    <script src="{% static 'jquery-3.5.1.js' %}"></script>
+    <script src="{% static 'bootstrap-table-master/dist/bootstrap-table.min.js' %}"></script>
 </head>
 <body>
 
@@ -45,6 +49,10 @@
               <li class="navbar active">
                 <a class="nav-link" href="/actualizador_de_gestion"><span class="mb-0 h6">Actualizador de Gestión</span></a>
               </li>
+
+              <li class="navbar active">
+                <a class="nav-link" href="/contrapartes"><span class="mb-0 h6">Contrapartes</span></a>
+              </li>
             {% endif %}
               <li class="navbar">
                 <form method = "GET" class="form-inline" action="/info_clientes/?q={{cliente.cli_rut}}">
@@ -63,15 +71,22 @@
 {% block content %}
 {% endblock %}
 </div>
+<footer>
+  <p>Soporte: Yeremy Aguilera</p>
+  <p><a href="mailto:yaguile1@microempresas.bancoestado.cl">yaguile1@microempresas.bancoestado.cl</a></p>
+</footer>
+<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+
 <script type="text/javascript" src="/jsi18n/"></script>
 <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
 <script type="text/javascript" src="{% static 'admin/js/actions.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'admin/js/calendar.js' %}"></script>
 <script type="text/javascript" src="{% static 'admin/js/admin/DateTimeShortcuts.js' %}"></script>
-
-<script type="text/javascript" charset="utf8" src="{% static '/DataTables/DataTables-1.10.21/js/dataTables.bootstrap.js' %}"></script>  
-
-<script type="text/javascript" src="{% static '/bootstrap/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap-table-master/dist/bootstrap-table.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap-table-master/dist/extensions/export/bootstrap-table-export.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap-table-master/dist/extensions/export/FileSaver.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap-table-master/dist/extensions/export/tableExport.min.js' %}"></script>
 
 </body>
 </html>

@@ -55,7 +55,7 @@ class PersonaAdmin(admin.ModelAdmin, ExportXLSXMixin):
                 'status')
 
     list_display = fields #+ ('gerencia', )
-    list_filter = ('zona', 'modulo', 'status')
+    list_filter = ('modulo', 'status')
 
 
 @admin.register(Asesor)

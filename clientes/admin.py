@@ -1,9 +1,23 @@
 from django.contrib import admin
+from personas_beme.models import EjecutivoComercial, Persona
 from .models import Cliente, OfertaCliente
 from personas_beme.admin import ExportXLSXMixin
+from django.db.models import Q
 # Register your models here.
 @admin.register(Cliente)
-class PersonaAdmin(admin.ModelAdmin, ExportXLSXMixin):
+class ClienteAdmin(admin.ModelAdmin, ExportXLSXMixin):
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "ejecutivo_cartera":
+            cli_rut = int(request.META['PATH_INFO'].split("/")[-3])
+            cliente = Cliente.objects.get(cli_rut = cli_rut)
+            kwargs["queryset"] = EjecutivoComercial.objects.filter(Q(zona=cliente.zona_cli) & Q(modulo=cliente.modulo_cli)).order_by('nombre')
+
+        if db_field.name == "gestor":
+            cli_rut = int(request.META['PATH_INFO'].split("/")[-3])
+            cliente = Cliente.objects.get(cli_rut = cli_rut)
+            kwargs["queryset"] = Persona.objects.filter(Q(zona=cliente.zona_cli) & Q(modulo=cliente.modulo_cli) & Q(cargo__in= ["EJECUTIVO_COMERCIAL", "ASISTENTE_COMERCIAL"])).order_by('cargo', 'nombre')
+        return super(ClienteAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     list_display_links = ('cli_rut', 'cli_nom')
 
@@ -24,19 +38,19 @@ class PersonaAdmin(admin.ModelAdmin, ExportXLSXMixin):
                     'modulo_cli',
                     'sucursal_cli')
 
-    list_filter = ('zona_cli', 'modulo_cli', 'sucursal_cli')
+    list_filter = ('modulo_cli',)
 
     fieldsets = (('Información del Cliente',
                                             {'fields': (('cli_rut'    , 'cli_nom', 'impacto_gasto'),
                                                         ('tel_fijo_1', 'tel_fijo_2', 'tel_cel_1', 'tel_cel_2'),
                                                         ('direccion_particular', 'direccion_comercial'),
                                                         'zona_cli'  , 'modulo_cli', 'sucursal_cli',
-                                                        'ejecutivo_cartera', 'gestor', 'estado_diario', 'postergacion','canal_ccl', 'canal_web')}),
+                                                        'ejecutivo_cartera', 'gestor', 'estado_diario', 'postergacion', 'preaprobados_reng', 'canal_ccl', 'canal_web', 'disponibilidad_oferta')}),
                  ('Información de Gestión',
-                                            {'fields': (('fecha_asignacion', 'fecha_gestion'),
+                                            {'fields': ('eleccion_oferta', ('fecha_asignacion', 'fecha_gestion'),
                                                         'contactabilidad', 'respuesta_cliente', 'estado', 'fecha_reinsistencia', 
                                                         'contacto_cliente_interesado', 'estado_cliente', 'fecha_firma', 
-                                                        'estado_curse', 'eleccion_oferta')}))
+                                                        'estado_curse', )}))
 
 @admin.register(OfertaCliente)
 class OfertaClienteAdmin(admin.ModelAdmin):

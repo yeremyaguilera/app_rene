@@ -9,9 +9,11 @@ class Contraparte(models.Model):
     class Meta:
         verbose_name = "Contrapartes"
         verbose_name_plural = "Contrapartes"
+        
+        unique_together = ("gestor_sin_acceso", "contraparte")
 
-    gestor_sin_acceso  = models.ForeignKey(Persona, on_delete= models.DO_NOTHING, related_name='gestor_sin_acceso')
-    contraparte        = models.ForeignKey(Persona, on_delete= models.DO_NOTHING, related_name='contraparte')
+    gestor_sin_acceso  = models.ForeignKey(Persona, null=True, on_delete= models.SET_NULL, related_name='gestor_sin_acceso')
+    contraparte        = models.ForeignKey(Persona, null=True, on_delete= models.SET_NULL, related_name='contraparte')
 
     def __str__(self):
         return str(self.contraparte)
@@ -25,7 +27,7 @@ class ActualizaGestion(models.Model):
         verbose_name = "Actualizador de Gestión"
         verbose_name_plural = "Actualizados de Gestión"
 
-    gestor = models.ForeignKey(Persona, on_delete= models.DO_NOTHING, related_name='Gestor')
+    gestor = models.ForeignKey(Persona, null=True,  on_delete= models.SET_NULL, related_name='Gestor')
     fecha  = models.DateField(auto_now_add=True, blank=True) 
 
     info_gestion = models.FileField(upload_to=user_directory_path, blank = True, null=True, help_text="Debe ser el archivo de gestión")

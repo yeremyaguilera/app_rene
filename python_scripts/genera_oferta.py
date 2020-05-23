@@ -269,9 +269,13 @@ def consolidado_info_impacto(df_operacion_info_impacto, df_tasas_seguro, periodo
         df_info_oferta.loc[index, "perfil_riesgo"] = operaciones_por_cliente["perfil_de_riesgo"].unique()[0]
         
         filtro_pago_mensual = operaciones_por_cliente[operaciones_por_cliente["prorroga_vigente"] == 0]
-        df_info_oferta.loc[index, "pago_mensual"] = filtro_pago_mensual["dop_mnt_cuo"].sum()
-        
-        df_info_oferta.loc[index, "ope_tasa_media"] = filtro_pago_mensual["ope_tasa"].mean()
+        if len(filtro_pago_mensual) != 0:
+            df_info_oferta.loc[index, "pago_mensual"] = filtro_pago_mensual["dop_mnt_cuo"].sum()
+            df_info_oferta.loc[index, "ope_tasa_media"] = filtro_pago_mensual["ope_tasa"].mean()
+        else:
+            df_info_oferta.loc[index, "pago_mensual"] = 0
+            df_info_oferta.loc[index, "ope_tasa_media"] = 0
+
         
         total_a_pagar = 0
         for index_ope, cada_operacion in operaciones_por_cliente.iterrows():
@@ -320,7 +324,7 @@ def crea_oferta(df_consolidado_info_impacto, periodo_de_gracia, tasa_oferta):
             num_cuotas_k_1 = num_cuotas_oferta_1
         else:
             if cada_cliente["num_cuotas_max_k"] < num_cuotas_oferta_1:
-                num_cuotas_k_1 = cada_cliente["num_cuotas_max_k"].values
+                num_cuotas_k_1 = cada_cliente["num_cuotas_max_k"]
             else:
                 num_cuotas_k_1 = num_cuotas_oferta_1
         ##MONTO CUOTA CONSUMO
@@ -333,7 +337,7 @@ def crea_oferta(df_consolidado_info_impacto, periodo_de_gracia, tasa_oferta):
             num_cuotas_gar_1_oferta_1 = num_cuotas_oferta_1
         else:
             if cada_cliente["num_cuotas_max_fogape_gar_1"] < num_cuotas_oferta_1:
-                num_cuotas_gar_1_oferta_1 = cada_cliente["num_cuotas_max_fogape_gar_1"].values
+                num_cuotas_gar_1_oferta_1 = cada_cliente["num_cuotas_max_fogape_gar_1"]
             else:
                 num_cuotas_gar_1_oferta_1 = num_cuotas_oferta_1
         ##MONTO CUOTA GAR 1 SI FOGAPE
@@ -346,7 +350,7 @@ def crea_oferta(df_consolidado_info_impacto, periodo_de_gracia, tasa_oferta):
             num_cuotas_gar_2_oferta_1 = num_cuotas_oferta_1
         else:
             if cada_cliente["num_cuotas_max_fogape_gar_2"] < num_cuotas_oferta_1:
-                num_cuotas_gar_2_oferta_1 = cada_cliente["num_cuotas_max_fogape_gar_2"].values
+                num_cuotas_gar_2_oferta_1 = cada_cliente["num_cuotas_max_fogape_gar_2"]
             else:
                 num_cuotas_gar_2_oferta_1 = num_cuotas_oferta_1
         ##MONTO CUOTA GAR 2 SI FOGAPE
@@ -359,7 +363,7 @@ def crea_oferta(df_consolidado_info_impacto, periodo_de_gracia, tasa_oferta):
             num_cuotas_gar_3_oferta_1 = num_cuotas_oferta_1
         else:
             if cada_cliente["num_cuotas_max_fogape_gar_3"] < num_cuotas_oferta_1:
-                num_cuotas_gar_3_oferta_1 = cada_cliente["num_cuotas_max_fogape_gar_3"].values
+                num_cuotas_gar_3_oferta_1 = cada_cliente["num_cuotas_max_fogape_gar_3"]
             else:
                 num_cuotas_gar_3_oferta_1 = num_cuotas_oferta_1
         ##MONTO CUOTA GAR 3 SI FOGAPE
@@ -372,7 +376,7 @@ def crea_oferta(df_consolidado_info_impacto, periodo_de_gracia, tasa_oferta):
             num_cuotas_gar_4_oferta_1 = num_cuotas_oferta_1
         else:
             if cada_cliente["num_cuotas_max_fogape_gar_4"] < num_cuotas_oferta_1:
-                num_cuotas_gar_4_oferta_1 = cada_cliente["num_cuotas_max_fogape_gar_4"].values
+                num_cuotas_gar_4_oferta_1 = cada_cliente["num_cuotas_max_fogape_gar_4"]
             else:
                 num_cuotas_gar_4_oferta_1 = num_cuotas_oferta_1
         ##MONTO CUOTA GAR 4 SI FOGAPE
@@ -400,7 +404,7 @@ def crea_oferta(df_consolidado_info_impacto, periodo_de_gracia, tasa_oferta):
             num_cuotas_k_2 = num_cuotas_oferta_2
         else:
             if cada_cliente["num_cuotas_max_k"] < num_cuotas_oferta_2:
-                num_cuotas_k_2 = cada_cliente["num_cuotas_max_k"].values
+                num_cuotas_k_2 = cada_cliente["num_cuotas_max_k"]
             else:
                 num_cuotas_k_2 = num_cuotas_oferta_2
         ##MONTO CUOTA CONSUMO
@@ -413,7 +417,7 @@ def crea_oferta(df_consolidado_info_impacto, periodo_de_gracia, tasa_oferta):
             num_cuotas_gar_1_oferta_2 = num_cuotas_oferta_2
         else:
             if cada_cliente["num_cuotas_max_fogape_gar_1"] < num_cuotas_oferta_2:
-                num_cuotas_gar_1_oferta_2 = cada_cliente["num_cuotas_max_fogape_gar_1"].values
+                num_cuotas_gar_1_oferta_2 = cada_cliente["num_cuotas_max_fogape_gar_1"]
             else:
                 num_cuotas_gar_1_oferta_2 = num_cuotas_oferta_2
         ##MONTO CUOTA GAR 1 SI FOGAPE
@@ -426,7 +430,7 @@ def crea_oferta(df_consolidado_info_impacto, periodo_de_gracia, tasa_oferta):
             num_cuotas_gar_2_oferta_2 = num_cuotas_oferta_2
         else:
             if cada_cliente["num_cuotas_max_fogape_gar_2"] < num_cuotas_oferta_2:
-                num_cuotas_gar_2_oferta_2 = cada_cliente["num_cuotas_max_fogape_gar_2"].values
+                num_cuotas_gar_2_oferta_2 = cada_cliente["num_cuotas_max_fogape_gar_2"]
             else:
                 num_cuotas_gar_2_oferta_2 = num_cuotas_oferta_2
         ##MONTO CUOTA GAR 2 SI FOGAPE
@@ -439,7 +443,7 @@ def crea_oferta(df_consolidado_info_impacto, periodo_de_gracia, tasa_oferta):
             num_cuotas_gar_3_oferta_2 = num_cuotas_oferta_2
         else:
             if cada_cliente["num_cuotas_max_fogape_gar_3"] < num_cuotas_oferta_2:
-                num_cuotas_gar_3_oferta_2 = cada_cliente["num_cuotas_max_fogape_gar_3"].values
+                num_cuotas_gar_3_oferta_2 = cada_cliente["num_cuotas_max_fogape_gar_3"]
             else:
                 num_cuotas_gar_3_oferta_2 = num_cuotas_oferta_2
         ##MONTO CUOTA GAR 3 SI FOGAPE
@@ -452,7 +456,7 @@ def crea_oferta(df_consolidado_info_impacto, periodo_de_gracia, tasa_oferta):
             num_cuotas_gar_4_oferta_2 = num_cuotas_oferta_2
         else:
             if cada_cliente["num_cuotas_max_fogape_gar_4"] < num_cuotas_oferta_2:
-                num_cuotas_gar_4_oferta_2 = cada_cliente["num_cuotas_max_fogape_gar_4"].values
+                num_cuotas_gar_4_oferta_2 = cada_cliente["num_cuotas_max_fogape_gar_4"]
             else:
                 num_cuotas_gar_4_oferta_2 = num_cuotas_oferta_2
         ##MONTO CUOTA GAR 4 SI FOGAPE

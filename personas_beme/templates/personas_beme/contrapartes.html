@@ -1,0 +1,50 @@
+{% extends 'personas_beme/base.html' %}
+
+{% block content %}
+<div><br></div>
+<form method="POST" >{% csrf_token %}
+    <table>
+       {{ contrapartes_form }}
+    </table>
+  <input class="btn btn-info btn-sm pull-left active" name="contrapartes_button" type="submit" style="width:auto" value="Crear">
+</form>
+<div><br></div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
+<div class ="container">
+    <form action="" method="POST">{% csrf_token %}
+        <table id="tabla_contrapartes" 
+                class           ="table table-striped table-bordered table-sm dataTable" 
+                data-toggle     ="table" 
+                data-pagination ="false" 
+                data-page-size  ="30" 
+                data-page-list  ="[25, 50, All]" 
+                data-boundary   ="viewport" 
+                data-search     = "false">
+            <thead class="thead-dark">
+                <tr>
+                    <th></th>
+                    <th data-sortable="true">Gestor sin acceso</th>
+                    <th data-sortable="true">Gestor</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for relacion in contrapartes %}  
+                <tr>
+                <td>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="checkbox_{{relacion.gestor_sin_acceso.codigo_persona_beme}}_{{relacion.contraparte.codigo_persona_beme}}" value="{{relacion.gestor_sin_acceso.codigo_persona_beme}}_{{relacion.contraparte.codigo_persona_beme}}", name = "relacion">
+                    <label class="form-check-label" for="checkbox_{{relacion.gestor_sin_acceso.codigo_persona_beme}}_{{relacion.contraparte.codigo_persona_beme}}"></label>
+                    </div>
+                </td>
+                <td>{{relacion.gestor_sin_acceso}}</td>
+                <td>{{relacion.contraparte}}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+        </table> 
+        <input class="btn btn-info btn-sm pull-left active" type = "submit" href="/contrapartes/" value="Eliminar Relación"></a>
+    </form>
+</div>
+{% endblock %}

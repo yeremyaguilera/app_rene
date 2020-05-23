@@ -16,7 +16,7 @@ import socket
 HOST_NAME = socket.gethostname().lower()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR       = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UPPER_BASE_DIR = os.path.abspath(os.path.join('', os.pardir))
 
 # Quick-start development settings - unsuitable for production
@@ -89,6 +89,8 @@ WSGI_APPLICATION = 'reneapp.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DB_DIR = '/app_rene data'
+
+UPPER_BASE_DIR = UPPER_BASE_DIR.replace("app_rene", "")
 
 DATABASES = {
     'default': {

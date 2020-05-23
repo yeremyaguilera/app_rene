@@ -1,42 +1,56 @@
 {% extends 'personas_beme/base.html' %}
 {% load my_filters %}
 {% block content %}
-<br>
-<div class="row">
+<div><br></div>
+        
+<div class = "table-responsive">
     <div>
         <form action="" method="POST">{% csrf_token %}
-        {{ persona_form }}
+            {{ persona_form }}
         <input class="btn btn-info btn-sm pull-left active" name="gestor_button" type="submit" style="width:auto" value="Asignar Gestión">
-        <div><br></div>
-        <table id="tabla_gestion">
-            <thead>
-            <tr>
-                <th></th>
-                <th>Rut</th>
-                <th>Nombre</th>
-                <th>Impacto en el Gasto</th>
-                <th>Operaciones</th>
-                <th>Gestor</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for cliente in info_tabla %}  
+  
+            <table id               = "tabla_asignacion" 
+                    class           = "table table-striped table-sm dataTable"
+                    data-toggle     = "table" 
+                    data-show-toggle="true"
+                    data-pagination = "true"
+                    data-page-size  = "30" 
+                    data-page-list  = "[25, 50, All]" 
+                    data-boundary   = "viewport"  
+                    data-search     = "false"
+                    data-show-export = "true">
+                <thead class="thead-dark">
                 <tr>
-                <td><div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="checkbox_{{cliente.cli_nom}}" value="{{cliente.cli_rut}}", name = "cartera">
-                      <label class="form-check-label" for="checkbox_{{cliente.cli_nom}}"></label>
-                    </div></td>
-                <td><a href="/info_clientes/?q={{cliente.cli_rut}}">{{cliente.cli_rut}}</a></td>
-                <td>{{cliente.cli_nom}}</td>
-                <td>{{cliente.impacto_gasto|currency}}</td>
-                <td>{{cliente.impactooperacion.cant_ope}}</td>
-                <td>{{cliente.gestor}}</td>
+                    <th></th>
+                    <th data-sortable="false">RUT</th>
+                    <th data-sortable="true">Nombre</th>
+                    <th data-sortable="false">Impacto en el Gasto</th>
+                    <th data-sortable="true">Operaciones</th>
+                    <th data-sortable="true">Ejecutivo Cartera</th>
+                    <th data-sortable="true">Gestor</th>
+                    <th data-sortable="true">Simulación</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </form>
+                </thead>
+                <tbody>
+                    {% for cliente in info_tabla %}  
+                        <tr>
+                        <td><div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkbox_{{cliente.cli_nom}}" value="{{cliente.cli_rut}}", name = "cartera">
+                            <label class="form-check-label" for="checkbox_{{cliente.cli_nom}}"></label>
+                            </div>
+                        </td>
+                        <td><a href="/info_clientes/?q={{cliente.cli_rut}}">{{cliente.cli_rut}}</a></td>
+                        <td>{{cliente.cli_nom}}</td>
+                        <td>{{cliente.impacto_gasto|currency}}</td>
+                        <td>{{cliente.impactooperacion.cant_ope}}</td>
+                        <td>{{cliente.ejecutivo_cartera}}</td>
+                        <td>{{cliente.gestor}}</td>
+                        <td>{{cliente.disponibilidad_oferta|bolean_to_value}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
     </div>
-
 </div>
 {% endblock %}

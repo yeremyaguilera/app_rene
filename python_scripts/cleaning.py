@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 
-
 def crea_rangos(dataframe):
     tipo_var = []
     rango    = []
@@ -64,34 +63,59 @@ def clean_modulo(df):
     df["modulo"] = df["modulo"].apply(lambda x: x.replace("METROP.", "METROPOLITANA"))
     df["modulo"] = df["modulo"].apply(lambda x: x.replace("_-_LOS_RIOS", ""))
     df["modulo"] = df["modulo"].apply(lambda x: x.replace("_-_LOS_LAGOS", ""))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("_-_LOS_LAGOS", ""))
 
+    ## RESPETAR ORDEN DE EJECUCION
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("QUINTA_COSTA", "V_REGION_COSTA"))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("QUINTA_CORDILLERA", "V_REGION_CORDILLERA"))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("SEXTO", "VI_REGION"))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("SEPTIMO", "VII_REGION"))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("OCTAVA_CORDILLERA", "VIII_REGION_CORDILLERA"))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("NOVENA_SUR", "IX_REGION_SUR"))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("NOVENA_NORTE", "IX_REGION_NORTE"))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("DECIMO_PRIMERO", "XI_REGION"))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("DECIMO_SEGUNDO", "XII_REGION"))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("DECIMO_CUARTO", "XIV_REGION"))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("DECIMO", "X_REGION"))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("PRIMER", "I_REGION"))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("SEGUNDO", "II_REGION"))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("TERCERO", "III_REGION"))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("CUARTO", "IV_REGION"))
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("QUINCEAVO", "XV_REGION"))
+
+    
+    df["modulo"] = df["modulo"].apply(lambda x: x.replace("REGION_METROPOLITANA", "METROPOLITANA"))
     return df
 
 def rename_columns_clientes(df):
-    df.rename(columns ={"cod_ec_cli": "codigo_ejecutivo"}, inplace = True)
-    df.rename(columns ={"impacto_gasto_reprogramacion": "impacto_gasto"}, inplace = True)
-    df.rename(columns ={"respuesta_cliente": "respuesta"}, inplace = True)
-    df.rename(columns ={"suc_nombre_suc": "sucursal"}, inplace = True)
-    df.rename(columns ={"postergación": "postergacion"}, inplace = True)
-    df.rename(columns ={"contactabilidad_informada_red": "estado_contacto_interesado"}, inplace = True)
-    df.rename(columns ={"des_cod_zona": "zona"}, inplace = True)
-    df.rename(columns ={"cli_tel_par": "tel_fijo_1",
-                                "cli_tel_com": "tel_fijo_2",
-                                "cli_tel_mov_001" : "tel_cel_1",
-                                "cli_tel_mov_002" : "tel_cel_2",
-                                "direc_particular" : "direccion_particular",
-                                "direc_comer" : "direccion_comercial",
-                                "sucursal": "sucursal_cli",
-                                "modulo": "modulo_cli",
-                                "zona" : "zona_cli"}, inplace = True)
+    df.rename(columns={"rut": "cli_rut"}, inplace = True)
+    df.rename(columns={"nombre_cliente": "cli_nom"}, inplace = True)
+    df.rename(columns={"impacto_en_gasto_pe_inicial": "impacto_gasto"}, inplace = True)
+    df.rename(columns={"telefono_particular": "tel_fijo_1"}, inplace = True)
+    df.rename(columns={"telefono_comercial": "tel_fijo_2"}, inplace = True)
+    df.rename(columns={"telefono_celular1": "tel_cel_1"}, inplace = True)
+    df.rename(columns={"telefono_celular2": "tel_cel_2"}, inplace = True)
+    df.rename(columns={"direc_particular": "direccion_particular"}, inplace = True)
+    df.rename(columns={"direc_comer": "direccion_comercial"}, inplace = True)
+    df.rename(columns={"esta_inscrito_en_formulario_web": "canal_web"}, inplace = True)
+    df.rename(columns={"posee_reneg_preaprobada": "preaprobados_reng"}, inplace = True)
+    df.rename(columns={"estado_de_morosidad_hoy": "estado_diario"}, inplace = True)
+    df.rename(columns={"zona": "zona_cli"}, inplace = True)
+    df.rename(columns={"modulo": "modulo_cli"}, inplace = True)
+    df.rename(columns={"nombre_oficna": "sucursal_cli"}, inplace = True)
+    df.rename(columns={"tiene_postergacion_cargada_hoy": "postergacion"}, inplace = True)
 
     return df
 
 def transform_clientes(df):
-    df["zona_cli"] = df["zona_cli"].apply(lambda x: x.replace(" ", "_"))
-
-    df["estado_diario"] = df["estado_diario"].apply(lambda x: x.upper().replace(" ", "_"))
-
+    df["zona_cli"]      = df["zona_cli"].apply(lambda x: x.replace(" ", "_"))
+    df["estado_diario"] = df["estado_diario"].apply(lambda x: x.replace(" ", "_"))
+    df["estado_diario"] = df["estado_diario"].apply(lambda x: x.replace("á", "a"))
+    df["estado_diario"] = df["estado_diario"].apply(lambda x: x.replace("é", "e"))
+    df["estado_diario"] = df["estado_diario"].apply(lambda x: x.replace("í", "i"))
+    df["estado_diario"] = df["estado_diario"].apply(lambda x: x.replace("ó", "o"))
+    df["estado_diario"] = df["estado_diario"].apply(lambda x: x.replace("ú", "u"))
+    df["estado_diario"] = df["estado_diario"].apply(lambda x: x.upper())
     return df
 
 def limpia_telefono(string):
@@ -125,3 +149,14 @@ def transform_operaciones(df):
 
     return df
 
+def get_user_from_codigo(codigo, df_personas, model):
+    email_persona = df_personas[df_personas['COD EC'] == codigo]["Mail"].values
+    if len(email_persona) == 1:
+        user = email_persona[0].split("@")[0].lower()
+        if model.objects.filter(codigo_persona_beme = user).exists():
+            persona_beme = model.objects.get(codigo_persona_beme = user)
+        else:
+            persona_beme = np.nan
+    else:
+        persona_beme = np.nan
+    return persona_beme

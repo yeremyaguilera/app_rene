@@ -70,11 +70,11 @@ SUCURSALES_SUR = (('SUBGERENCIA_REGIONAL_VII_REGION', 'SUR: Subgerencia Regional
                     ('LINARES'                      , 'SUR: LINARES'))
 
 class Persona(models.Model):
-    codigo_persona_beme = models.IntegerField(primary_key=True)
-    nombre           = models.CharField(max_length = 50)
-    apellido         = models.CharField(max_length = 50)
-    apellido_materno = models.CharField(max_length = 50)
-    email            = models.EmailField()
+    codigo_persona_beme = models.CharField(max_length = 50, primary_key=True)
+    nombre              = models.CharField(max_length = 50)
+    apellido            = models.CharField(max_length = 50)
+    apellido_materno    = models.CharField(max_length = 50)
+    email               = models.EmailField()
 
     cargo = models.CharField(max_length = 30, 
                                         choices = CARGOS, 

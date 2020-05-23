@@ -27,8 +27,8 @@ ESTADO_CLIENTE = (('FIRMARA_DOCUMENTOS', 'Firmará Documentos'),
                     ('RECHAZA_OFERTA', 'Rechaza Oferta'))
 
 ESTADO_CURSE = (('NO_CURSADA', 'No Cursada'), 
-                ('CURSADA', 'Cursada'), 
-                ('EN_PROCESO', "En Proceso"))
+                ('EN_PROCESO', "En Proceso"), 
+                ('ENVIADA_A_CURSE', 'Enviada a Curse'))
 
 ESTADO_DIARIO = (("MOROSO", "Moroso"),
                 ("AL_DIA", "Al Día"))
@@ -43,9 +43,15 @@ class Cliente(models.Model):
     cli_rut = models.IntegerField(primary_key=True, help_text="Sin dígito verificador")
     cli_nom = models.CharField(max_length=100)
 
-    ejecutivo_cartera = models.ForeignKey(EjecutivoComercial, on_delete = models.SET_NULL, null=True, related_name='pertenece_a_la_cartera')
-    gestor  = models.ForeignKey(Persona, on_delete = models.SET_NULL, null=True, blank = True, related_name='actualmente_gestionando')
+    impacto_gasto = models.IntegerField()
 
+    tel_fijo_1 = models.IntegerField(blank=True, null = True,  help_text="+56 + (cod reg) + (num)")
+    tel_fijo_2 = models.IntegerField(blank=True, null = True, help_text="+56 + (cod reg) + (num)")
+    tel_cel_1 = models.IntegerField(blank=True, help_text="+569 + (123456789)")
+    tel_cel_2 = models.IntegerField(blank=True, help_text="+569 + (123456789)")
+
+    direccion_particular = models.CharField(max_length = 100, blank = True, null = True)
+    direccion_comercial  = models.CharField(max_length = 100, blank = True, null = True)
 
     zona_cli = models.CharField(max_length = 30, 
                                         choices = ZONAS, 
@@ -57,30 +63,24 @@ class Cliente(models.Model):
                                         blank = False, 
                                         null = False)
 
-
     sucursal_cli = models.CharField(max_length = 50)
-    
-    tel_fijo_1 = models.IntegerField(blank=True, null = True,  help_text="+56 + (cod reg) + (num)")
-    tel_fijo_2 = models.IntegerField(blank=True, null = True, help_text="+56 + (cod reg) + (num)")
-    tel_cel_1 = models.IntegerField(blank=True, help_text="+569 + (123456789)")
-    tel_cel_2 = models.IntegerField(blank=True, help_text="+569 + (123456789)")
 
-    direccion_particular = models.CharField(max_length = 100, blank = True, null = True)
-    direccion_comercial  = models.CharField(max_length = 100, blank = True, null = True)
-    preaprobados_reng    = models.BooleanField(verbose_name="Preaprobados Rene")
-
-    impacto_gasto = models.IntegerField()
-
+    ejecutivo_cartera = models.ForeignKey(EjecutivoComercial, on_delete = models.SET_NULL, null=True, related_name='pertenece_a_la_cartera', help_text="Sólo Ejecutivo")
+    gestor  = models.ForeignKey(Persona, on_delete = models.SET_NULL, null=True, blank = True, related_name='actualmente_gestionando', help_text="Ejecutivos y Asistentes Comerciales")
 
     estado_diario = models.CharField(max_length = 50, 
                                         choices = ESTADO_DIARIO,
                                         blank = True, 
                                         null = True)
-    
+
+
     postergacion  = models.CharField(max_length = 50, 
                                         choices = OPCIONES_POSTERGACION,
                                         blank = True, 
                                         null = True)
+
+    preaprobados_reng    = models.BooleanField(verbose_name="Preaprobados Rene")
+
 
     canal_ccl     = models.IntegerField(choices = OPCIONES_CANAL,
                                         blank = True, 
@@ -88,14 +88,16 @@ class Cliente(models.Model):
 
     canal_web     = models.BooleanField(null = True, verbose_name="Canal WEB")
 
+    disponibilidad_oferta    = models.BooleanField(verbose_name="Disponibilidad de Ofertas")
+
     eleccion_oferta  = models.CharField(max_length = 50, 
                                         choices = OPCIONES_OFERTA,
                                         blank = True, 
                                         null = True)
     
-    fecha_asignacion = models.DateField(blank=True)
+    fecha_asignacion = models.DateField(null = True, blank=True)
     
-    fecha_gestion    = models.DateField(blank=True) 
+    fecha_gestion    = models.DateField(null = True, blank=True) 
     
 
     contactabilidad = models.CharField(max_length = 50, 
@@ -105,27 +107,34 @@ class Cliente(models.Model):
 
     respuesta_cliente  = models.CharField(max_length = 30, 
                                         choices = RESPUESTAS_CLIENTE, 
-                                        blank = True, null = True)
+                                        blank = True, 
+                                        null = True)
     
     estado = models.CharField(max_length = 30, 
                                         choices = ESTADO, 
-                                        blank = True, null = True)
+                                        blank = True, 
+                                        null = True)
 
 
-    fecha_reinsistencia    = models.DateField(blank=True) 
+    fecha_reinsistencia    = models.DateField(blank=True, 
+                                                null = True) 
 
     contacto_cliente_interesado = models.CharField(max_length = 30, 
                                         choices = CONTACTO_CLIENTE_INTERESADO, 
-                                        blank = True, null = True)
+                                        blank = True, 
+                                        null = True)
 
     estado_cliente = models.CharField(max_length = 30, 
                                         choices = ESTADO_CLIENTE, 
-                                        blank = True, null = True)
-
-    fecha_firma = models.DateField(blank=True) 
-
-    estado_curse = models.IntegerField(choices = ESTADO_CURSE,
                                         blank = True, 
+                                        null = True)
+
+    fecha_firma = models.DateField(blank=True, 
+                                    null = True) 
+
+    estado_curse = models.CharField(max_length = 30, 
+                                        choices = ESTADO_CURSE,
+                                        blank = True,
                                         null = True)
 
     def __str__(self):
@@ -137,7 +146,7 @@ class OfertaCliente(models.Model):
         verbose_name_plural = "Ofertas Clientes"
         unique_together = ("fecha_de_oferta", "cliente")
 
-    cliente           = models.ForeignKey(Cliente, on_delete = models.DO_NOTHING, related_name='cliente')
+    cliente           = models.ForeignKey(Cliente, on_delete = models.CASCADE, related_name='cliente')
     
     fecha_de_oferta   = models.DateField(null=False, blank=False)
 
