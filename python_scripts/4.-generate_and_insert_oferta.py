@@ -29,6 +29,7 @@ from info_complementaria.models import PeriodoGracia, TasaOferta
 
 
 df_consolidado_info_impacto = pd.DataFrame(list(ImpactoOperacion.objects.all().values()))
+
 df_consolidado_info_impacto.rename(columns = {"cliente_id": "cli_rut"}, inplace = True)
 
 logging.info("Se Cargaron los Impactos de Operaciones de la Base de Datos")

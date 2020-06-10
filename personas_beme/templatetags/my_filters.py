@@ -4,6 +4,11 @@ from info_complementaria.models import PeriodoGracia
 
 register = template.Library()
 
+def index(indexable, i):
+    return indexable[i]
+
+register.filter('index', index)
+
 
 def bolean_to_value(T_o_F):
     if T_o_F == True:
@@ -17,7 +22,10 @@ register.filter('bolean_to_value', bolean_to_value)
 
 
 def currency(dollars):
-    dollars = int(dollars)
+    if (dollars == None) or (dollars == ''):
+        dollars = 0
+    else:
+        dollars = int(dollars)
     return "$ {}".format(intcomma(dollars))
 
 register.filter('currency', currency)

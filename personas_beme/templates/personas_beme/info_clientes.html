@@ -43,94 +43,86 @@
               <td>{{info_cliente.direccion_comercial}}</td>
           </tr>
           <tr>
+              <th>Email : </th>
+              <td>{{info_cliente.email}}</td>
+          </tr>
+          <tr>
               <th>Estado : </th>
               <td>{{info_cliente.estado_diario}}</td>
           </tr>
           <tr>
               <th>Preaprobado Renegociación : </th>
-              <td>{{info_cliente.preaprobados_reng|bolean_to_value}}</td>
+              <td>{{info_cliente.renegociacion_preaprobada}}</td>
           </tr>
           <tr>
               <th>Gestor : </th>
               <td>{{info_cliente.gestor}}</td>
           </tr>
           <tr>
-            <th>Canal CCL : </th>
-            <td>{{info_cliente.canal_ccl}}</td>
+              <th>Fecha asignación gestor : </th>
+              <td>{{info_cliente.fecha_asignacion_gestor|date:"d M, Y"}}</td>
           </tr>
           <tr>
-            <th>Canal WEB : </th>
-            <td>{{info_cliente.canal_web}}</td>
+            <th>Postergación Cargada Hoy : </th>
+            <td>{{info_cliente.postergacion_cargada_hoy}}</td>
           </tr>
-          {% if info_cliente.gestor.codigo_persona_beme != persona_instance.codigo_persona_beme%}
           <tr>
-            <th>Elección Oferta: </th>
-            <td>{{info_cliente.eleccion_oferta}}</td>
+            <th>Canal Postergación Hoy : </th>
+            <td>{{info_cliente.canal_postergacion_hoy}}</td>
           </tr>
-          {%else%}
           <tr>
-            <th>Elección Oferta: </th>
-            <td><form action="" method="POST">{% csrf_token %}
-                {{db_form.eleccion_oferta}}
-                <input class="btn btn-info btn-sm pull-left active" name="db_button" type="submit" style="width:auto" value="Guardar Cambios">
-                <input type="hidden" id="cli_rut" name="cli_rut" value={{info_cliente.cli_rut}}>
-                </form></td>
+            <th>Inscrito Formulario WEB : </th>
+            <td>{{info_cliente.inscrito_formulario_web}}</td>
           </tr>
-          {% endif %}
+          <tr>
+            <th>Renegociacion WEB Disponible : </th>
+            <td>{{info_cliente.renegociacion_web_disponible}}</td>
+          </tr>
+          <tr>
+            <th>Oferta Simulador Riesgo : </th>
+            <td>{{info_cliente.oferta_simulador_riesgo}}</td>
+          </tr>
+          <tr>
+            <th>Posee Operaciones con Aval : </th>
+            <td>{{info_cliente.posee_operaciones_con_aval}}</td>
+          </tr>
+          <tr>
+            <th>Campaña Capital COVID : </th>
+            <td>{{info_cliente.campana_capital_covid}}</td>
+          </tr>
+          <tr>
+            <th>Campaña Postergacion Preferencial : </th>
+            <td>{{info_cliente.campana_postergacion_preferencial}}</td>
+          </tr>
         </table>
       </div>
-
       <div class="col s10 m8 l6">
-        {% if info_cliente.gestor.codigo_persona_beme != persona_instance.codigo_persona_beme%}
-          <table id="vertical-1">
-            <tr>
-                <th>Fecha asignación : </th>
-                <td>{{info_cliente.fecha_asignacion|date:"d M, Y"}}</td>
-            </tr>
-            <tr>
-                <th>Fecha gestión : </th>
-                <td>{{info_cliente.fecha_gestion|date:"d M, Y"}}</td>
-            </tr>
-            <tr>
-                <th>Contactabilidad : </th>
-                <td>{{info_cliente.contactabilidad}}</td>
-            </tr>
-            <tr>
-                <th>Respuesta cliente : </th>
-                <td>{{info_cliente.respuesta_cliente}}</td>
-            </tr>
-            <tr>
-                <th>Estado : </th>
-                <td>{{info_cliente.estado}}</td>
-            </tr>
-            <tr>
-                <th>Fecha reinsistencia : </th>
-                <td>{{info_cliente.fecha_reinsistencia|date:"d M, Y"}}</td>
-            </tr>
-            <tr>
-                <th>Contacto cliente interesado : </th>
-                <td>{{info_cliente.contacto_cliente_interesado}}</td>
-            </tr>
-            <tr>
-                <th>Estado cliente : </th>
-                <td>{{info_cliente.estado_cliente}}</td>
-            </tr>
-          </table>
-          <p> </p>
-
+        {% if info_cliente.gestor.codigo_persona_beme != user_instance.username%}
           <form action="" method="POST">{% csrf_token %}
-            <table>
+            <table id="vertical-1">
               <tr>
-                <th>Fecha firma : </th>
-                <td>{{ excel_form.fecha_firma }}</td>
+                  <th>Fecha gestión : </th>
+                  <td>{{info_cliente.fecha_registro|date:"d M, Y"}}</td>
               </tr>
               <tr>
-                <th>Estado curse : </th>
-                <td>{{ excel_form.estado_curse }}</td>
+                  <th>Contactabilidad : </th>
+                  <td>{{info_cliente.contactabilidad}}</td>
+              </tr>
+              <tr>
+                  <th>Respuesta cliente : </th>
+                  <td>{{info_cliente.respuesta_cliente}}</td>
+              </tr>
+              <tr>
+                  <th>Estado Negociación : </th>
+                  <td>{{info_cliente.estado_negociacion}}</td>
+              </tr>
+              <tr>
+                  <th>Observación : </th>
+                  <td>{{info_cliente.observacion}}</td>
               </tr>
             </table>
-            <input class="btn btn-info btn-sm pull-left active" name="excel_button" type="submit" style="width:auto" value="Guardar Cambios">
-            <input type="hidden" id="cli_rut" name="cli_rut" value={{info_cliente.cli_rut}}>
+            <p> </p>
+             <input type="hidden" id="cli_rut" name="cli_rut" value={{info_cliente.cli_rut}}>
           </form>
         {% else %}
           <form action="" method="POST">{% csrf_token %}
@@ -140,10 +132,10 @@
                 <input class="btn btn-info btn-sm pull-left active" name="excel_button" type="submit" style="width:auto" value="Guardar Cambios">
           </form>
         {% endif %}
-      </div>  
+      </div>
     </div>
   {% endif %}
-  {% if info_cliente.disponibilidad_oferta == True %}
+  {% if info_cliente.oferta_simulador_riesgo == 'SI' %}
     {% include "personas_beme/info_clientes_simulador.html" %}
   {% else %}
     <p><strong><h5>Este Cliente no posee Ofertas en el Simulador</h5></strong>

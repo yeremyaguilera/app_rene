@@ -2,17 +2,208 @@
 {% load my_filters %}
 {% block content %}
 <div><br></div>
+<p><strong><h5>Informacion de {{persona_instance.modulo}}</h5></strong></p>
+<div>
+    <table class = "table table-striped table-sm">
+        <thead class="thead-dark">
+            <tr>
+                <th></th>
+                <th>NO DISPONIBLE</th>
+                <th>DISPONIBLE</th>
+                <th>DISPONIBLE con Carga</th>
+                <th>Carga Promedio (DISPONIBLE)</th>
+                <th>Carga Std</th>
+                <th>Carga Min</th>
+                <th>Carga Max</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>EJECUTIVOS COMERCIALES</td>
+                <td>{{stats.n_ejecutivos_no_disponibles}}</td>
+                <td>{{stats.n_ejecutivos_disponibles}}</td>
+                <td>{{stats.ejecutivos_disponibles_con_carga}}</td>
+                <td>{{stats.carga_promedio_ejecutivos_disponibles}}</td>
+                <td>{{stats.carga_std_ejecutivos}}</td>
+                <td>{{stats.carga_minima_ejecutivos}}</td>
+                <td>{{stats.carga_maxima_ejecutivos}}</td>
+            </tr>
+            <tr>
+                <td>ASISTENTES COMERCIALES</td>
+                <td>{{stats.n_asistentes_no_disponibles}}</td>
+                <td>{{stats.n_asistentes_disponibles}}</td>
+                <td>{{stats.asistentes_disponibles_con_carga}}</td>
+                <td>{{stats.carga_promedio_asistentes_disponibles}}</td>
+                <td>{{stats.carga_std_asistentes}}</td>
+                <td>{{stats.carga_minima_asistentes}}</td>
+                <td>{{stats.carga_maxima_asistentes}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>Del total de {{stats.total_clientes}} clientes {{stats.clientes_sin_gestor}} estan sin gestor</p>
+
+<p><strong><h5>Asignador de Cartera Automatico</h5></strong></p>
+
+
+<form action="" method = "POST">{% csrf_token %}
+    <input class="btn btn-info btn-sm pull-left active" name="asignacion_1" type="submit" value="Asignar Gestion segun cartera"></input>
+</form>
+
+
+<div><br></div>
+
+<div class="row">
+    <div class="col s10 m8 l6">
+        <div id="accordion_left">
+            <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Asignacion #1
+                </button>
+                </h5>
+            </div>
         
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#collapseOne">
+                <div class="card-body">
+                    <p><strong>¿A quién? : </strong> Ejecutivos</p>
+                    <p><strong>¿Donde? : </strong> Sucursal</p>
+                    <p><strong>Detalle : </strong> Ejecutivo solo puede recibir una cartera</p>
+                    <form action="" method = "POST">{% csrf_token %}
+                        <input class="btn btn-info btn-sm pull-left active" name="asignacion_2" type="submit" value="Asignar Gestion"></input>
+                    </form>
+                </div>
+            </div>
+            </div>
+            <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Asignacion #2
+                </button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#collapseTwo">
+                <div class="card-body">
+                    <p><strong>¿A quién? : </strong> Ejecutivos</p>
+                    <p><strong>¿Donde? : </strong> Sucursal</p>
+                    <p><strong>Detalle : </strong> Ejecutivo puede recibir mas de una cartera</p>
+                    <form action="" method = "POST">{% csrf_token %}
+                        <input class="btn btn-info btn-sm pull-left active" name="asignacion_3" type="submit" value="Asignar Gestion"></input>
+                    </form>
+                </div>
+            </div>
+            </div>
+            <div class="card">
+            <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Asignacion #3
+                </button>
+                </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#collapseThree">
+                <div class="card-body">
+                    <p><strong>¿A quién? : </strong> Ejecutivos</p>
+                    <p><strong>¿Donde? : </strong> Sucursal</p>
+                    <p><strong>Detalle : </strong> Clientes se distribuyen equitativamente.</p>
+                    <form action="" method = "POST">{% csrf_token %}
+                        <input class="btn btn-info btn-sm pull-left active" name="asignacion_4" type="submit" value="Asignar Gestion"></input>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!--SEPARACION DE LOS DOS ACORDEONES-->
+
+    <div class="col s10 m8 l6">
+        <div id="accordion_right">
+            <div class="card">
+            <div class="card-header" id="headingFour">
+                <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    Asignacion #4
+                </button>
+                </h5>
+            </div>
+        
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#collapseFour">
+                <div class="card-body">
+                    <p><strong>¿A quién? : </strong> Ejecutivos</p>
+                    <p><strong>¿Donde? : </strong> Módulo</p>
+                    <p><strong>Detalle : </strong> Clientes se distribuyen equitativamente.</p>
+                    <form action="" method = "POST">{% csrf_token %}
+                        <input class="btn btn-info btn-sm pull-left active" name="asignacion_5" type="submit" value="Asignar Gestion"></input>
+                    </form>
+                </div>
+            </div>
+            </div>
+            <div class="card">
+            <div class="card-header" id="headingFive">
+                <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    Asignacion #5
+                </button>
+                </h5>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#collapseFive">
+                <div class="card-body">
+                    <p><strong>¿A quién? : </strong> Ejecutivos y/o Asistentes</p>
+                    <p><strong>¿Donde? : </strong> Sucursal</p>
+                    <p><strong>Detalle : </strong> Clientes se distribuyen equitativamente.</p>
+                    <form action="" method = "POST">{% csrf_token %}
+                        <input class="btn btn-info btn-sm pull-left active" name="asignacion_6" type="submit" value="Asignar Gestion"></input>
+                    </form>
+                </div>
+            </div>
+            </div>
+            <div class="card">
+            <div class="card-header" id="headingSix">
+                <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    Asignacion #6
+                </button>
+                </h5>
+            </div>
+            <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#collapseSix">
+                <div class="card-body">
+                    <p><strong>¿A quién? : </strong> Ejecutivos y/o Asistentes</p>
+                    <p><strong>¿Donde? : </strong> Módulo</p>
+                    <p><strong>Detalle : </strong> Clientes se distribuyen equitativamente.</p>
+                    <form action="" method = "POST">{% csrf_token %}
+                        <input class="btn btn-info btn-sm pull-left active" name="asignacion_7" type="submit" value="Asignar Gestion"></input>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div><br></div>
+
+<form action="" method = "POST">{% csrf_token %}
+    <input class="btn btn-warning btn-sm pull-left active" name="asignacion_0" type="submit" value="Vaciar Gestion"></input>
+</form>
+
+<div><br></div>
+
+<p><strong><h5>Asignador de Cartera Manual</h5></strong></p>
+
 <div class = "table-responsive">
     <div>
         <form action="" method="POST">{% csrf_token %}
             {{ persona_form }}
-        <input class="btn btn-info btn-sm pull-left active" name="gestor_button" type="submit" style="width:auto" value="Asignar Gestión">
+            <input class="btn btn-info btn-sm pull-left active" name="gestor_button" type="submit" style="width:auto" value="Asignar Gestión">
   
             <table id               = "tabla_asignacion" 
                     class           = "table table-striped table-sm dataTable"
                     data-toggle     = "table" 
-                    data-show-toggle="true"
+                    data-show-toggle= "true"
                     data-pagination = "true"
                     data-page-size  = "30" 
                     data-page-list  = "[25, 50, All]" 
@@ -25,6 +216,8 @@
                     <th data-sortable="false">RUT</th>
                     <th data-sortable="true">Nombre</th>
                     <th data-sortable="false">Impacto en el Gasto</th>
+                    <th data-sortable="false">Estado Cliente</th>
+                    <th data-sortable="false">Preaprobado</th>
                     <th data-sortable="true">Operaciones</th>
                     <th data-sortable="true">Ejecutivo Cartera</th>
                     <th data-sortable="true">Gestor</th>
@@ -41,11 +234,13 @@
                         </td>
                         <td><a href="/info_clientes/?q={{cliente.cli_rut}}">{{cliente.cli_rut}}</a></td>
                         <td>{{cliente.cli_nom}}</td>
-                        <td>{{cliente.impacto_gasto|currency}}</td>
-                        <td>{{cliente.impactooperacion.cant_ope}}</td>
-                        <td>{{cliente.ejecutivo_cartera}}</td>
-                        <td>{{cliente.gestor}}</td>
-                        <td>{{cliente.disponibilidad_oferta|bolean_to_value}}</td>
+                        <td>{{cliente.impacto_gasto_pe_hoy|currency}}</td>
+                        <td>{{cliente.estado_diario}}</td>
+                        <td>{{cliente.renegociacion_preaprobada}}</td>
+                        <td>{{cliente.impactooperacion__cant_ope}}</td>
+                        <td>{{cliente.ejecutivo_cartera__nombre}} {{cliente.ejecutivo_cartera__apellido}} {{cliente.ejecutivo_cartera__apellido_materno}}</td>
+                        <td>{% if cliente.gestor__cargo%} {{cliente.gestor__cargo}}: {{cliente.gestor__nombre}} {{cliente.gestor__apellido}} {{cliente.gestor__apellido_materno}}{% endif %}</td>
+                        <td>{{cliente.oferta_simulador_riesgo}}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

@@ -16,16 +16,20 @@ Including another URLconf
 
 from django.urls import path
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
 from django.views.i18n import JavaScriptCatalog
 
 
 urlpatterns = [
-    path(''               , views.panel                , name = 'panel'),
-    path('gestion/'       , views.tabla_clientes       , name = 'tabla_clientes'),
-    path('detalle_oferta/', views.detalle_oferta       , name = 'detalle_oferta'),
-    path('info_clientes/' , views.info_clientes        , name = 'info_clientes'),
-    path('jsi18n/'        , JavaScriptCatalog.as_view(), name = 'javascript-catalog'),
-    path('actualizador_de_gestion/' , views.actualizador_de_gestion     , name = 'actualizador_de_gestion'),
-    path('asignador_de_cartera/'    , views.asignador_de_cartera       , name = 'asignador_de_cartera'),
-    path('contrapartes/'    , views.contrapartes       , name = 'contrapartes'),
+    path(''                         , views.panel                   , name = 'panel'),
+    path('gestion/'                 , views.tabla_clientes          , name = 'tabla_clientes'),
+    path('detalle_oferta/'          , views.detalle_oferta          , name = 'detalle_oferta'),
+    path('info_clientes/'           , views.info_clientes           , name = 'info_clientes'),
+    path('jsi18n/'                  , JavaScriptCatalog.as_view()   , name = 'javascript-catalog'),
+    path('actualizador_de_gestion/' , views.actualizador_de_gestion , name = 'actualizador_de_gestion'),
+    path('asignador_de_cartera/'    , views.asignador_de_cartera    , name = 'asignador_de_cartera'),
+    path('contrapartes/'            , views.contrapartes            , name = 'contrapartes'),
+    path('distribucion_de_gestion/' , views.distribucion_de_gestion , name = 'distribucion_de_gestion'),
+    path('consolidado_gestion/'     , views.consolidado_gestion     , name = 'consolidado_gestion'),
 ]

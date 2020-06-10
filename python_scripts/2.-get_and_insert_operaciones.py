@@ -19,6 +19,7 @@ logging.basicConfig(level=logging.DEBUG,
 import sys
 sys.path.append("../")
 
+
 # Configuramos la importación de los modelos de Django
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "reneapp.settings")
@@ -29,6 +30,7 @@ django.setup()
 
 from operaciones.models import Operacion
 from clientes.models import Cliente
+from reneapp.settings import BASE_DIR
 
 # Parámetro de la clase Operacion de la DB
 nombre_columnas = [f.name for f in Operacion._meta.get_fields()]
@@ -58,11 +60,12 @@ if HOST_NAME in ["w81-yaguile1", "vsk12-micro-neg"]:
     logging.info("Lectura Lograda a SQL")
 
 elif HOST_NAME == 'yaguilera-note':
-    relative_dir = '../excel_files/initial_db/'
+
+    relative_dir = os.path.join(BASE_DIR, 'excel_files', 'initial_db')
     nombre_archivo  = os.listdir(relative_dir)[0]
 
     # Archivo a importar
-    df_operaciones = pd.read_excel(relative_dir + nombre_archivo, sheet_name="Base2")
+    df_operaciones = pd.read_excel(os.path.join(relative_dir , nombre_archivo), sheet_name="Base2")
 
     logging.info("Lectura exitosa desde .xlsx")
 else:
@@ -82,10 +85,12 @@ ruts = df_operaciones["cli_rut"].unique()
 
 for cada_rut in ruts:
     if Cliente.objects.filter(cli_rut = cada_rut).exists():
+        logging.info("El Cliente " + str(cada_rut) + " tiene oferta en el simulador")
         cliente = Cliente.objects.get(cli_rut = cada_rut)
         cliente.disponibilidad_oferta = True
         cliente.save()
     else:
+        logging.info("El Cliente " + str(cada_rut) + " no tiene está en la cartera FOCO")
         df_operaciones = df_operaciones[df_operaciones["cli_rut"] != cada_rut].reset_index(drop = True)
 
 logging.info("Se Marcaron con oferta los clientes que tienen operaciones")

@@ -21,7 +21,6 @@
 
 
     <script src="{% static 'jquery-3.5.1.js' %}"></script>
-    <script src="{% static 'bootstrap-table-master/dist/bootstrap-table.min.js' %}"></script>
 </head>
 <body>
 
@@ -42,16 +41,20 @@
               </li>
             {% endif %}
             {% if 'Asesores' in permisos %}
+
+              <li class="navbar active">
+                <a class="nav-link" href="/contrapartes"><span class="mb-0 h6">Asignación de Contrapartes</span></a>
+              </li>
               <li class="navbar active">
                 <a class="nav-link" href="/asignador_de_cartera"><span class="mb-0 h6">Asignación de Cartera</span></a>
               </li>
-
+              
               <li class="navbar active">
-                <a class="nav-link" href="/actualizador_de_gestion"><span class="mb-0 h6">Actualizador de Gestión</span></a>
+                <a class="nav-link" href="/distribucion_de_gestion"><span class="mb-0 h6">Exportar Asignacion (Excel)</span></a>
               </li>
-
+              
               <li class="navbar active">
-                <a class="nav-link" href="/contrapartes"><span class="mb-0 h6">Contrapartes</span></a>
+                <a class="nav-link" href="/consolidado_gestion"><span class="mb-0 h6">Consolidado de Gestión</span></a>
               </li>
             {% endif %}
               <li class="navbar">
@@ -84,9 +87,6 @@
 <script type="text/javascript" src="{% static 'admin/js/admin/DateTimeShortcuts.js' %}"></script>
 <script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
 <script type="text/javascript" src="{% static 'bootstrap-table-master/dist/bootstrap-table.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'bootstrap-table-master/dist/extensions/export/bootstrap-table-export.js' %}"></script>
-<script type="text/javascript" src="{% static 'bootstrap-table-master/dist/extensions/export/FileSaver.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'bootstrap-table-master/dist/extensions/export/tableExport.min.js' %}"></script>
 
 </body>
 </html>

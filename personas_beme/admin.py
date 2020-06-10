@@ -52,6 +52,7 @@ class PersonaAdmin(admin.ModelAdmin, ExportXLSXMixin):
                 'zona',
                 'modulo',
                 'sucursal',
+                'codigo_sucursal',
                 'status')
 
     list_display = fields #+ ('gerencia', )
@@ -84,6 +85,7 @@ class EjecutivoComercialAdmin(PersonaAdmin):
                 'zona',
                 'modulo',
                 'sucursal',
+                'codigo_sucursal',
                 'status')
     pass
 

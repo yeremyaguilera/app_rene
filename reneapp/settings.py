@@ -17,7 +17,8 @@ HOST_NAME = socket.gethostname().lower()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR       = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-UPPER_BASE_DIR = os.path.abspath(os.path.join('', os.pardir))
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "reneapp.settings")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -41,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'celery',
+    #'django_celery_results',
+    #'django_celery_beat',
     'django_extensions',
     'personas_beme',
     'info_complementaria',
@@ -88,14 +92,26 @@ WSGI_APPLICATION = 'reneapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DB_DIR = '/app_rene data'
 
-UPPER_BASE_DIR = UPPER_BASE_DIR.replace("app_rene", "")
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(UPPER_BASE_DIR + DB_DIR, 'db.sqlite3'),
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'app_rene',
+        'HOST': 'VSK12-MICRO-NEG',
+        'PORT': '1433',
+        'USER': 'app_rene',
+        'PASSWORD' : 'app_rene',
+        'OPTIONS':{
+            'driver': 'SQL Server Native Client 11.0',
+        }
+
     }
 }
 
@@ -145,6 +161,15 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'excel_files')
-MEDIA_URL = '/excel_files/'
+MEDIA_URL = 'excel_files/'
 
 FILES_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+# CELERY STUFF
+BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'America/Santiago'

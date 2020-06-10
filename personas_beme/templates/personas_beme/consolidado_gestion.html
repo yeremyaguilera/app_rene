@@ -1,0 +1,58 @@
+{% extends 'personas_beme/base.html' %}
+{% load my_filters %}
+{% block content %}
+<br></br>
+<p><strong><h5>Seguimiento Cartera Foco</h5></strong></p>
+<table id="tabla_consolidado" 
+        class           ="table table-striped table-bordered table-sm dataTable" 
+        data-toggle     ="table" 
+        data-pagination ="false" 
+        data-page-size  ="30" 
+        data-page-list  ="[25, 50, All]" 
+        data-boundary   ="viewport" 
+        data-search     = "false">
+    <thead class="thead-dark">
+        <tr>
+            <th data-sortable="false">Ejecutivo-Asistente</th>
+            <th data-sortable="true">Status</th>
+            <th data-sortable="true">Sucursal</th>
+            <th data-sortable="true">Total Asignados</th>
+            <th data-sortable="false">Asignados con Oferta</th>
+            <th data-sortable="true">Morosos</th>
+            <th data-sortable="true">Morosos<br></br>Contactados OK</th>
+            <th data-sortable="true">% Avance</th>
+            <th data-sortable="true">Impacto en Gasto Total</th>
+            <th data-sortable="false">Impacto en Gasto Morosos</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for persona in personas_a_consolidar %}
+            <tr>
+                <td><a href="/asignador_de_cartera/?q={{persona.codigo_persona_beme}}">{{persona}}</a></td>
+                <td>{{persona.status}}</td>
+                <td>{{persona.sucursal}}</td>
+                <td>{{list_n_clientes_asignados|index:forloop.counter0}}</td>
+                <td>{{list_n_clientes_asignados_con_oferta_simulador|index:forloop.counter0}}</td>
+                <td>{{list_n_clientes_morosos|index:forloop.counter0}}</td>
+                <td>{{list_n_morosos_contactados|index:forloop.counter0}}</td>
+                <td>{{list_perc_avance|index:forloop.counter0|porcentaje}}</td>
+                <td>{{list_impacto_total|index:forloop.counter0|currency}}</td>
+                <td>{{list_impacto_morosos|index:forloop.counter0|currency}}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td><strong><h5>TOTAL</h5></strong></td>
+            <td></td>
+            <td></td>
+            <td><strong><h6>{{total|index:0}}</h6></strong></td>
+            <td><strong><h6>{{total|index:1}}</h6></strong></td>
+            <td><strong><h6>{{total|index:2}}</h6></strong></td>
+            <td><strong><h6>{{total|index:3}}</h6></strong></td>
+            <td><strong><h6>{{total|index:4|porcentaje}}</h6></strong></td>
+            <td><strong><h6>{{total|index:5|currency}}</h6></strong></td>
+            <td><strong><h6>{{total|index:6|currency}}</h6></strong></td>
+            </tr>
+    </tbody>
+</table>   
+<br></br>
+{% endblock %}

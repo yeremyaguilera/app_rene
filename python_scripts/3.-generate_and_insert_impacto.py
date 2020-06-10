@@ -71,7 +71,7 @@ for index, cada_impacto in df_consolidado_info_impacto.iterrows():
         logging.info("Cliente ya tiene impacto en la Base de Datos")
         logging.info(cada_impacto.cliente)
     else:
-        logging.info("Creación de Cliente")
+        logging.info("Creación de Impacto Operación")
         logging.info(cada_impacto.cliente)
         ImpactoOperacion.objects.create(**cada_impacto)
 

@@ -1,0 +1,39 @@
+{% extends 'personas_beme/base.html' %}
+{% load my_filters %}
+{% block content %}
+
+
+<br></br>
+<div>
+    <form action="#" method = "POST">{% csrf_token %}
+        <input class="btn btn-info btn-sm pull-left active" name="generar_simulador" type="submit" value="Generar gestión a gestores"></input>
+    </form>
+</div>
+<br></br>
+<table id="tabla_con_gestion" 
+        class           ="table table-striped table-bordered table-sm dataTable" 
+        data-toggle     ="table" 
+        data-pagination ="false" 
+        data-page-size  ="30" 
+        data-page-list  ="[25, 50, All]" 
+        data-boundary   ="viewport" 
+        data-search     = "false">
+    <thead class="thead-dark">
+        <tr>
+            <th data-sortable="true">Fecha</th>
+            <th data-sortable="true">Gestor</th>
+            <th data-sortable="false">Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for indice in indices %}  
+        <tr>
+        <td>{{ fecha|index:indice }}</td>
+        <td>{{ gestor|index:indice }}</td>
+        <td><a href="/{{ nombre_archivo|index:indice }}">Descarga</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>   
+<br></br>
+{% endblock %}

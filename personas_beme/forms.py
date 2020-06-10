@@ -11,10 +11,7 @@ class FormularioClienteDB(forms.ModelForm):
 
     class Meta:
         model = Cliente
-        fields = ['cli_rut',
-                    'canal_ccl',
-                    'canal_web',
-                    'eleccion_oferta']
+        fields = ['cli_rut',]
                     
         widgets = {'cli_rut': forms.HiddenInput()}
 
@@ -22,23 +19,16 @@ class FormularioClienteExcel(forms.ModelForm):
 
     class Meta:
         model = Cliente
-        fields = ['cli_rut', 
-                    'fecha_asignacion',
-                    'fecha_gestion',
+        fields = ['cli_rut',
+                    'fecha_registro',
                     'contactabilidad',
                     'respuesta_cliente',
-                    'estado',
-                    'fecha_reinsistencia',
-                    'contacto_cliente_interesado',
-                    'estado_cliente',
-                    'fecha_firma',
-                    'estado_curse']
+                    'estado_negociacion',
+                    'observacion']
                     
         widgets = {'cli_rut': forms.HiddenInput(), 
-                    'fecha_asignacion': AdminDateWidget(), 
-                    'fecha_gestion': AdminDateWidget(), 
-                    'fecha_reinsistencia': AdminDateWidget(), 
-                    'fecha_firma': AdminDateWidget()}
+                    'fecha_asignacion_gestor': AdminDateWidget(), 
+                    'fecha_registro': AdminDateWidget()}
 
 class ContraparteForm(forms.ModelForm):
     class Meta:
@@ -49,8 +39,8 @@ class ContraparteForm(forms.ModelForm):
     def __init__(self, persona=None, **kwargs):
         super(ContraparteForm, self).__init__(**kwargs)
         if persona:
-            self.fields['gestor_sin_acceso'].queryset = Persona.objects.filter(Q(zona = persona.zona) & Q(modulo = persona.modulo) & ~Q(cargo = "ASESOR_COMERCIAL")).order_by('cargo', 'nombre')
-            self.fields['contraparte'].queryset = Persona.objects.filter(Q(zona = persona.zona) & Q(modulo = persona.modulo) & ~Q(cargo = "ASESOR_COMERCIAL")).order_by('cargo', 'nombre')
+            self.fields['gestor_sin_acceso'].queryset   = Persona.objects.filter(Q(zona = persona.zona) & Q(modulo = persona.modulo) & ~Q(cargo = "ASESOR_COMERCIAL")).order_by('cargo', 'nombre')
+            self.fields['contraparte'].queryset         = Persona.objects.filter(Q(zona = persona.zona) & Q(modulo = persona.modulo) & ~Q(cargo = "ASESOR_COMERCIAL")).order_by('cargo', 'nombre')
 
 class EmailForm(forms.Form):
     person_choice = forms.ModelChoiceField(required = False, queryset=Contraparte.objects.all(), label="Relación Contraparte ")

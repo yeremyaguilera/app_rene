@@ -222,11 +222,11 @@ def consolidado_info_impacto(df_operacion_info_impacto, df_tasas_seguro, periodo
                                                                 df_info_oferta.loc[index, "saldo_adeudado_gar"]*df_info_oferta.loc[index, "tasa_seguro"]
         
         
-        df_info_oferta.loc[index, "saldo_sin_gar_comercial_final"] = df_info_oferta.loc[index, "saldo_sin_gar_comercial"]*(1+0.99/100)**df_info_oferta.loc[index, "periodo_de_gracia"]
+        df_info_oferta.loc[index, "saldo_sin_gar_comercial_final"] = df_info_oferta.loc[index, "saldo_sin_gar_comercial"]*((1+tasa_oferta)**df_info_oferta.loc[index, "periodo_de_gracia"])
         
         filtro_adeudado_consumo = operaciones_por_cliente[(operaciones_por_cliente["acum_garantia"] == 0) & (operaciones_por_cliente["operacion_k"] == 1)]
         df_info_oferta.loc[index, "saldo_adeudado_consumo"] = (filtro_adeudado_consumo["dop_sdo_tot"].sum()+filtro_adeudado_consumo["interes_moratorio"].sum()+filtro_adeudado_consumo["gastos_cobranza"].sum())*(1+df_info_oferta.loc[index, "tasa_seguro"])
-        df_info_oferta.loc[index, "saldo_adeudado_consumo_final"] = df_info_oferta.loc[index, "saldo_adeudado_consumo"]*(1+0.99/100)**df_info_oferta.loc[index, "periodo_de_gracia"]
+        df_info_oferta.loc[index, "saldo_adeudado_consumo_final"] = df_info_oferta.loc[index, "saldo_adeudado_consumo"]*(1+tasa_oferta)**df_info_oferta.loc[index, "periodo_de_gracia"]
         
         if df_info_oferta.loc[index, "saldo_adeudado_consumo_final"] != 0:
             df_info_oferta.loc[index, "num_cuotas_max_k"] = 48 - periodo_de_gracia

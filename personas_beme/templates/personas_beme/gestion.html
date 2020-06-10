@@ -14,23 +14,29 @@
                 data-search     = "false">
             <thead class="thead-dark">
                 <tr>
-                    <th data-sortable="false">RUT</th>
-                    <th data-sortable="true">Nombre</th>
-                    <th data-sortable="false">Impacto en el Gasto</th>
-                    <th data-sortable="true">Operaciones</th>
-                    <th data-sortable="true">Gestor</th>
-                    <th data-sortable="true">Simulación</th>
+                  <th data-sortable="false">RUT</th>
+                  <th data-sortable="true">Nombre</th>
+                  <th data-sortable="false">Impacto en el Gasto</th>
+                  <th data-sortable="false">Estado Cliente</th>
+                  <th data-sortable="false">Preaprobado</th>
+                  <th data-sortable="true">Operaciones</th>
+                  <th data-sortable="true">Ejecutivo Cartera</th>
+                  <th data-sortable="true">Gestor</th>
+                  <th data-sortable="true">Simulación</th>
                 </tr>
             </thead>
             <tbody>
               {% for cliente in info_tabla %}  
                 <tr>
-                <td><a href="/info_clientes/?q={{cliente.cli_rut}}">{{cliente.cli_rut}}</a></td>
-                <td>{{cliente.cli_nom}}</td>
-                <td>{{cliente.impacto_gasto|currency}}</td>
-                <td>{{cliente.impactooperacion.cant_ope}}</td>
-                <td>{{cliente.gestor}}</td>
-                <td>{{cliente.disponibilidad_oferta|bolean_to_value}}</td>
+                  <td><a href="/info_clientes/?q={{cliente.cli_rut}}">{{cliente.cli_rut}}</a></td>
+                  <td>{{cliente.cli_nom}}</td>
+                  <td>{{cliente.impacto_gasto_pe_hoy|currency}}</td>
+                  <td>{{cliente.estado_diario}}</td>
+                  <td>{{cliente.renegociacion_preaprobada}}</td>
+                  <td>{{cliente.impactooperacion__cant_ope}}</td>
+                  <td>{{cliente.ejecutivo_cartera__nombre}} {{cliente.ejecutivo_cartera__apellido}} {{cliente.ejecutivo_cartera__apellido_materno}}</td>
+                  <td>{% if cliente.gestor__cargo%} {{cliente.gestor__cargo}}: {{cliente.gestor__nombre}} {{cliente.gestor__apellido}} {{cliente.gestor__apellido_materno}}{% endif %}</td>
+                  <td>{{cliente.oferta_simulador_riesgo}}</td>
                 </tr>
               {% endfor %}
             </tbody>
